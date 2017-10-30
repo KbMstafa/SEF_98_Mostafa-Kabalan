@@ -1,5 +1,9 @@
 #!/usr/bin/env php
 <?php
+
+	$options = getopt("a:e:t:d:s:m:");
+	
+
 	exec('git log --pretty="%H - %an - %ae - %ad - %s"', $gitLogLines);
 
 
@@ -9,37 +13,48 @@
 			$array[] = array_combine ( $fields, explode ( " - ", $value) );
 	}
 
-	foreach ($array as $value) {
-			$value[""] = array_combine ( $fields, explode ( " - ", $value) );
-	}	
-		
+
+
+
+	foreach ($array as &$value) {
+	
+		switch(true) {
+			case isset($options["a"]):
+			    if(stripos($value["name"], $options["a"]) === False){
+			    	unset($value);
+			    }
+			    break;
+			case isset($options["e"]):
+			    if(stripos($value["email"], $options["e"]) === False){
+			    	unset($value);
+			    }
+			    break;
+			case isset($options["t"]):
+			    
+			    break;
+		    case isset($options["d"]):
+			    
+			    break;
+		    case isset($options["s"]):
+			    
+			    break;
+		    case isset($options["m"]):
+			    
+			    break;
+		}
+
+	}
+
+
+
+
+
+
+
+		$d=$array[0]["date"] ;
+		$date= date_create_from_format("D M j G:i:s Y O", $d);
+		echo date_format($date,"D-M-Y / H:i / U")." -- \"";		
 	var_dump($array);
-
-$options = getopt("aetdsm");
-if ( isset($options["a"])){
-
-}
-
-if ( isset($options["e"])){
-	
-}
-
-if ( isset($options["t"])){
-	
-}
-
-if ( isset($options["d"])){
-	
-}
-
-if ( isset($options["s"])){
-	
-}
-
-if ( isset($options["m"])){
-	
-}
-
 
 ?>
 
