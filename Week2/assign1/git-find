@@ -7,7 +7,44 @@
 	$array = array();
 	foreach ($gitLogLines as $value) {
 			$array[] = array_combine ( $fields, explode ( " - ", $value) );
-		}	
+	}
+
+	foreach ($array as $value) {
+			$value[""] = array_combine ( $fields, explode ( " - ", $value) );
+	}	
 		
-		var_dump($array);
+	var_dump($array);
+
+$options = getopt("aetdsm");
+if ( isset($options["a"])){
+
+}
+
+if ( isset($options["e"])){
+	
+}
+
+if ( isset($options["t"])){
+	
+}
+
+if ( isset($options["d"])){
+	
+}
+
+if ( isset($options["s"])){
+	
+}
+
+if ( isset($options["m"])){
+	
+}
+
+
 ?>
+
+
+
+
+
+
