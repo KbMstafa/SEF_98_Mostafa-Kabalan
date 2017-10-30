@@ -1,65 +1,40 @@
 #!/usr/bin/env php
 <?php
-
-	$options = getopt("a:e:t:d:s:m:");
+	$searchBy = getopt("a:e:t:d:s:m:");
+	exec('git log --pretty="%H - %an - %ae - %cd - %s"', $gitLogLines);
+	$optionName = array ("hash", "name", "email", "date", "message");
+	$commits = array();
 	
-
-	exec('git log --pretty="%H - %an - %ae - %ad - %s"', $gitLogLines);
-
-
-	$fields = array ("hash", "name", "email", "date", "message");
-	$array = array();
-	foreach ($gitLogLines as $value) {
-			$array[] = array_combine ( $fields, explode ( " - ", $value) );
+	foreach ($gitLogLines as $line) {
+			$commits[] = array_combine ( $optionName, explode ( " - ", $line) );
 	}
 
+	foreach ($commits as $commitOptionName => $comitOptionValue) {
+		if (isset($searchBy["a"]) && stripos($comitOptionValue["name"], $searchBy["a"]) === False) {
+			unset($commits[$commitOptionName]);
+		} elseif ( isset($searchBy["e"]) && stripos($comitOptionValue["email"], $searchBy["e"]) === False ) {
+			unset($commits[$commitOptionName]);
+		} elseif ( isset($searchBy["t"]) || isset($searchBy["d"]) || isset($searchBy["s"]) ){
+			$commitDate = $comitOptionValue["date"] ;
+			$commitDate = date_create_from_format("D M j G:i:s Y O", $commitDate);
 
-
-
-	foreach ($array as &$value) {
-	
-		switch(true) {
-			case isset($options["a"]):
-			    if(stripos($value["name"], $options["a"]) === False){
-			    	unset($value);
-			    }
-			    break;
-			case isset($options["e"]):
-			    if(stripos($value["email"], $options["e"]) === False){
-			    	unset($value);
-			    }
-			    break;
-			case isset($options["t"]):
-			    
-			    break;
-		    case isset($options["d"]):
-			    
-			    break;
-		    case isset($options["s"]):
-			    
-			    break;
-		    case isset($options["m"]):
-			    
-			    break;
+			if( isset($searchBy["t"]) && $searchBy["t"] !== ($time = date_format($commitDate,"H:i") ) ){
+				unset($commits[$commitOptionName]);
+			} elseif ( isset($searchBy["d"]) && $searchBy["d"] !== ($date = date_format($commitDate,"d-m-Y") ) ) {
+				unset($commits[$commitOptionName]);
+			} elseif ( isset($searchBy["s"]) && $searchBy["s"] !== ($timestamp = date_format($commitDate,"U") ) ) {
+				unset($commits[$commitOptionName]);
+			}
+		} elseif ( isset($searchBy["m"]) && stripos($comitOptionValue["message"], $searchBy["m"]) === False ) {
+			unset($commits[$commitOptionName]);
 		}
-
+	}	
+	
+	foreach ($commits as $commitOptionName => $commitOptionValue) {
+		unset( $commits[$commitOptionName]["email"] );
 	}
 
-
-
-
-
-
-
-		$d=$array[0]["date"] ;
-		$date= date_create_from_format("D M j G:i:s Y O", $d);
-		echo date_format($date,"D-M-Y / H:i / U")." -- \"";		
-	var_dump($array);
-
+	foreach ($commits as $commitOption) {
+		echo implode(" - ", $commitOption)."\n";
+	}
 ?>
-
-
-
-
-
-
