@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+	exec('git log --pretty="%H - %an - %ae - %ad - %s"', $gitLogLines);
+
+
+	$fields = array ("hash", "name", "email", "date", "message");
+	$array = array();
+	foreach ($gitLogLines as $value) {
+			$array[] = array_combine ( $fields, explode ( " - ", $value) );
+		}	
+		
+		var_dump($array);
+?>
