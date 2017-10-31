@@ -11,33 +11,27 @@
 	}
 
 	foreach ($commits as $commitOptionName => $comitOptionValue) {
-		if (isset($searchBy["a"]) && stripos($comitOptionValue["name"], $searchBy["a"]) === False) {
-			$results["Author"] = $searchBy["a"];
+		if (isset($searchBy["a"]) && ( $results["Author"] = $searchBy["a"] ) && stripos($comitOptionValue["name"], $searchBy["a"]) === False) {
 			unset($commits[$commitOptionName]);
 		}
-		if ( isset($searchBy["e"]) && stripos($comitOptionValue["email"], $searchBy["e"]) === False ) {
-			$results["Email address"] = $searchBy["e"];
+		if ( isset($searchBy["e"]) && ( $results["Email address"] = $searchBy["e"] ) && stripos($comitOptionValue["email"], $searchBy["e"]) === False ) {
 			unset($commits[$commitOptionName]);
 		}
 		if ( isset($searchBy["t"]) || isset($searchBy["d"]) || isset($searchBy["s"]) ){
 			$commitDate = $comitOptionValue["date"] ;
 			$commitDate = date_create_from_format("D M j G:i:s Y O", $commitDate);
 
-			if( isset($searchBy["t"]) && $searchBy["t"] !== ($time = date_format($commitDate,"H:i") ) ){
-				$results["Time"] = $searchBy["t"];
+			if( isset($searchBy["t"]) && ( $results["Time"] = $searchBy["t"] ) && $searchBy["t"] !== ($time = date_format($commitDate,"H:i") ) ){
 				unset($commits[$commitOptionName]);
 			}
-			if ( isset($searchBy["d"]) && $searchBy["d"] !== ($date = date_format($commitDate,"d-m-Y") ) ) {
-				$results["Date"] = $searchBy["d"];
+			if ( isset($searchBy["d"]) && ( $results["Date"] = $searchBy["d"] ) && $searchBy["d"] !== ($date = date_format($commitDate,"d-m-Y") ) ) {
 				unset($commits[$commitOptionName]);
 			}
-			if ( isset($searchBy["s"]) && $searchBy["s"] !== ($timestamp = date_format($commitDate,"U") ) ) {
-				$results["Epoch Timestamp"] = $searchBy["s"];
+			if ( isset($searchBy["s"]) && ( $results["Epoch Timestamp"] = $searchBy["s"] ) && $searchBy["s"] !== ($timestamp = date_format($commitDate,"U") ) ) {
 				unset($commits[$commitOptionName]);
 			}
 		}
-		if ( isset($searchBy["m"]) && stripos($comitOptionValue["message"], $searchBy["m"]) === False ) {
-			$results["Commit Message"] = $searchBy["m"];
+		if ( isset($searchBy["m"]) && ( $results["Commit Message"] = $searchBy["m"] ) && stripos($comitOptionValue["message"], $searchBy["m"]) === False ) {
 			unset($commits[$commitOptionName]);
 		}
 	}	
@@ -45,6 +39,12 @@
 	foreach ($commits as $commitOptionName => $commitOptionValue) {
 		unset( $commits[$commitOptionName]["email"] );
 	}
+
+	$list = Array();
+	foreach ($results as $search => $searchValue) {
+	  $list[] = "$search (\"$searchValue\")";
+	}
+	echo 'Search results by '.implode(', ',$list)." - Total: ".count($commits)."\n";
 
 	foreach ($commits as $commitOption) {
 		echo "$lineNumber:: ".implode(" - ", $commitOption)."\n";
