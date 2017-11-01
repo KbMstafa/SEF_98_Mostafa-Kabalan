@@ -3,11 +3,12 @@ class GameGenerator {
     private $numberOfGames;
     private $target;
     private $numbers;
-    private $firstList = array(25, 50, 75, 100);
+    private $firstList;
 
 
     function __construct($numberOfGames = 1) {
         $this->numberOfGames = $numberOfGames;
+        $this->firstList = array(25, 50, 75, 100);
     }
     function fillFirstListValues() {
         $this->numbers = array();
