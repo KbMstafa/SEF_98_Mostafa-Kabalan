@@ -21,7 +21,7 @@ class GameGenerator {
             $this->numbers[]=$this->firstList[$indexes];
         }
     }
-    function setListOfValues() {
+    function setListOfNumbers() {
         $this->fillFirstListValues();
         $numbersLeft = 6 - count($this->numbers);
         while ($numbersLeft > 0) {
@@ -41,14 +41,14 @@ class GameGenerator {
         }
         return $count;
     }
+    function getListOfNumbers() {
+        return $this->numbers;
+    }
     function setTarget() {
         $this->target = rand (101, 999);
     }
     function getTarget() {
         return $this->target;
-    }
-    function getNumbers() {
-        return $this->numbers;
     }
     function getNumberOfGames() {
         return $this->numberOfGames;
