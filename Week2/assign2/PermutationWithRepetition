@@ -1,0 +1,26 @@
+<?php
+class PermutationWithRepetition {
+    private $result;
+
+    function permutations($charactersArray, $permutation) {
+        $arrayOfCharacters = array();
+        $numberOfPermutations = pow(count($charactersArray), $permutation);
+        for ($permutations = 0; $permutations<$numberOfPermutations; $permutations++) {
+            $count = count($charactersArray);
+            $charactersCombination = array();
+            for ($characterIndex = 0; $characterIndex < $permutation; $characterIndex++) {
+                $selector = ($permutations / pow($count,$characterIndex)) % $count;
+                $charactersCombination[$characterIndex] = $charactersArray[$selector];
+            }
+            $arrayOfCharacters[$permutations] = $charactersCombination;        
+        }
+        return $arrayOfCharacters;
+    }
+    function setPermutations() {
+        $this->result = $this->permutations(['+', '-', '*', '/'], 5);
+    }
+    function getPermutations() {
+        return $this->result;
+    }
+}
+?>
