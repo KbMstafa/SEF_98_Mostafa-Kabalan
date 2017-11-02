@@ -1,0 +1,25 @@
+<?php
+class Stack {
+	private $stack;
+
+	function __construct() {
+		$this->stack = array();
+	}
+	function size() {
+		return count($this->stack);
+	}
+	function top() {
+		return end($this->stack);
+	}
+	function push($value = NULL) {
+		return array_push($this->stack, $value);
+	}
+	function pop() {
+		return array_pop($this->stack);
+	}
+	function isEmpty() {
+		return empty($this->stack);
+	}
+}
+?>
+
