@@ -5,10 +5,18 @@ class GameGenerator {
     private $numbers;
     private $firstList;
 
-
     function __construct($numberOfGames = 1) {
         $this->numberOfGames = $numberOfGames;
         $this->firstList = array(25, 50, 75, 100);
+    }
+    function countOcc($element, $array) {
+        $count = 0;
+        foreach ($array as $arrayElement) {
+            if ($arrayElement == $element) {
+                $count++;
+            }
+        }
+        return $count;
     }
     function fillFirstListValues() {
         $this->numbers = array();
@@ -32,26 +40,19 @@ class GameGenerator {
             }
         }
     }
-    function countOcc($element, $array) {
-        $count = 0;
-        foreach ($array as $arrayElement) {
-            if ($arrayElement == $element) {
-                $count++;
-            }
-        }
-        return $count;
-    }
-    function getListOfNumbers() {
-        return $this->numbers;
-    }
     function setTarget() {
         $this->target = rand (101, 999);
     }
-    function getTarget() {
-        return $this->target;
-    }
     function getNumberOfGames() {
         return $this->numberOfGames;
+    }
+    function getTarget() {
+        $this->setTarget();
+        return $this->target;
+    }
+    function getListOfNumbers() {
+        $this->setListOfNumbers();
+        return $this->numbers;
     }
 }
 ?>

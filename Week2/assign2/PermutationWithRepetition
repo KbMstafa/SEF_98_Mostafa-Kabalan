@@ -16,8 +16,8 @@ class PermutationWithRepetition {
         }
         return $arrayOfCharacters;
     }
-    function setPermutations() {
-        $this->result = $this->permutations(['+', '-', '*', '/'], 5);
+    function setPermutations($array) {
+        $this->result = $this->permutations($array, 5);
     }
     function getPermutations() {
         return $this->result;
