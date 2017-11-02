@@ -1,0 +1,28 @@
+<?php
+class PermutationWithoutRepetition {
+    private $result;
+
+    function permutations($charactersArray, $permutatedArray=array()) {
+        if (empty($permutatedArray)){
+            $this->result = array();
+        }
+        if (empty($charactersArray)){
+            $this->result[] = $permutatedArray;
+        } else {
+            for($charactersIndex=0; $charactersIndex<count($charactersArray); $charactersIndex++){
+                $new_permutatedArray = $permutatedArray;
+                $new_permutatedArray[] = $charactersArray[$charactersIndex];
+                $new_charactersArray =    array_merge(array_slice($charactersArray,0,$charactersIndex),array_slice($charactersArray,$charactersIndex+1));
+                $this->permutations($new_charactersArray, $new_permutatedArray);
+            }
+        }
+        return $this;
+    }
+    function setPermutations($array) {
+        $this->permutations($array);
+    }
+    function getPermutations() {
+        return $this->result;
+    }
+}
+?>
