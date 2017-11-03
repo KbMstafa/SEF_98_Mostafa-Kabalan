@@ -1,0 +1,136 @@
+<?php
+require_once "GameGenerator";
+require_once "Stack";
+require_once "PermutationWithRepetition";
+require_once "PermutationWithoutRepetition";
+
+class GameSolver {
+    private $operatorsArray;
+    private $numbersArray;
+    private $numbers;
+    Private $target;
+    private $solution;
+
+    private function uniqueArray($array) {
+        $newArray = array();
+        foreach ($array as $value) {
+            if(!in_array($value, $newArray))
+                $newArray[] = $value;
+        }
+        return $newArray;
+    }
+    private function selectOperatorsPlaces() {
+        $places = new PermutationWithRepetition;
+        $places->setPermutations([2, 3, 4, 5, 6]);
+        $arraysPlaces = $places->getPermutations();
+        foreach ($arraysPlaces as &$arrayPlaces) {
+            sort($arrayPlaces);
+        }
+        return $this->uniqueArray($arraysPlaces);
+    }
+    private function evaluate($arraysArray, &$closerSolution) {
+        $diff = abs($this->target - eval('return '.$closerSolution.';'));
+        $eval = new Stack;
+        foreach ($arraysArray as $character) {
+            if (is_numeric($character)) {
+                $eval->push($character);
+            } else {
+                if ($eval->size() < 2) {
+                    break;
+                } else {
+                    $pop1 = $eval->pop();
+                    $pop2 = $eval->pop();
+                    $string = '('.$pop2.$character.$pop1.')';
+                    $evaluation = eval('return '.$string.';');
+                    if ($evaluation > 0 && is_int($evaluation)) {
+                        if (abs($evaluation - $this->target) < $diff) {
+                            $closerSolution = $string;
+                            $diff = abs($evaluation - $this->target);
+                        }
+                        $eval->push($string);    
+                    }
+                }
+            }
+        }
+        while (!$eval->isEmpty())
+        {
+            $string = $eval->pop();
+            $evaluation = eval('return '.$string.';');
+            if ($evaluation > 0 && is_int($evaluation)) {
+                if (abs($evaluation - $this->target) < $diff) {
+                    $closerSolution = $string;
+                    $diff = abs($evaluation - $this->target);
+                }
+            }
+        }
+    }
+    function setOperators() {
+        $operators = new PermutationWithRepetition;
+        $operators->setPermutations(['+', '-', '*', '/']);
+        $this->operatorsArray = $operators->getPermutations();
+    }
+    function setOptions() {
+        $game = new GameGenerator;
+        $this->numbers = $game->getListOfNumbers();
+        $numbers = new PermutationWithoutRepetition;
+        $numbers->setPermutations($this->numbers);
+        $this->numbersArray = $numbers->getPermutations();
+        $this->target = $game->getTarget();
+    }
+    function solve() {
+        $solution = "0";
+        foreach ($this->numbersArray as $numbers) {
+            foreach ($this->operatorsArray as $operators) {
+                $expressions = array();
+                $operatorsPlaces = $this->selectOperatorsPlaces();
+                foreach ($operatorsPlaces as $places) {
+                    $expression = array();
+                    $numberIndex = 0;
+                    $operatorIndex = 0;
+                    $placeIndex = 0;
+                    while (count($expression) < 
+                        count($numbers) + count($operators)) {
+                        if ($operatorIndex == count($operators)) {
+                            $expression[] = $numbers[$numberIndex];
+                            $numberIndex++;
+                        } else {
+                            if (($numberIndex < $places[$placeIndex])) {
+                                $expression[] = $numbers[$numberIndex];
+                                $numberIndex++;
+                            } else {
+                                $expression[] = $operators[$operatorIndex];
+                                $operatorIndex++;
+                                $placeIndex++;
+                            }
+                        }
+                    }
+                    $expressions[] = $expression;
+                }
+                foreach ($expressions as $expression) {
+                    $this->evaluate($expression, $solution);
+                    $evaluation = eval('return '.$solution.';');
+                    if ($this->target == $evaluation) {
+                        break;
+                    }
+                }
+                if ($this->target == $evaluation) {
+                    break;
+                }
+            }
+            if ($this->target == $evaluation) {
+                break;
+            }
+        }
+        $this->solution = $solution;
+    }
+    function getTarget() {
+        return $this->target;
+    }
+    function getNumbers() {
+        return $this->numbers;
+    }
+    function getSolution() {
+        return $this->solution;
+    }
+}
+?>
