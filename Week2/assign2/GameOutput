@@ -1,0 +1,42 @@
+<?php
+require_once"GameSolver";
+
+class GameOutput {
+	private $numbers;
+	private $target;
+	private $numberOfGames;
+	private $solution;
+
+	function __construct() {
+		echo "How many games would you like me to play today?\n";
+		$this->numberOfGames = fgets(STDIN);
+	}
+	function output() {
+		for($gameNumber = 1; $gameNumber < $this->numberOfGames; $gameNumber++) {
+		    $this->solve($gameNumber);
+		    echo "\n\n__________\n\n\n";
+		}
+		$this->solve($this->numberOfGames);
+	}
+	function solve($number) {
+		$solver = new GameSolver;
+	    $solver->setOperators();
+	    $solver->setOptions();
+	    $this->target = $solver->getTarget();
+	    $this->numbers = $solver->getNumbers();
+	    echo "Game {$number}:\n";
+	    echo "{ ".implode(", ", $this->numbers)." }\n";
+	    echo "Target: {$this->target}\n\n";
+	    $solver->solve();
+	    $this->solution = $solver->getSolution();
+	    $evaluation = eval('return '.$this->solution.';');
+	    echo "Solution ";
+	    if (($this->target - $evaluation) == 0) {
+	    	echo "[Exact]:\n";
+	    } else {
+	    	echo "[Remaining: ".($this->target - $evaluation)."]\n";
+	    }
+	    echo "{$this->solution} = {$evaluation}\n";
+	}
+}
+?>
