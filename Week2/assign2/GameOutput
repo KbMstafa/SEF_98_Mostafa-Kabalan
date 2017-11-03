@@ -9,7 +9,7 @@ class GameOutput {
 
 	function __construct() {
 		echo "How many games would you like me to play today?\n";
-		$this->numberOfGames = fgets(STDIN);
+		$this->numberOfGames = trim(fgets(STDIN));
 	}
 	function output() {
 		for($gameNumber = 1; $gameNumber < $this->numberOfGames; $gameNumber++) {
