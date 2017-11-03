@@ -1,15 +1,11 @@
 <?php
 class GameGenerator {
-    private $numberOfGames;
     private $target;
     private $numbers;
     private $firstList;
 
-    function __construct($numberOfGames = 1) {
-        $this->numberOfGames = $numberOfGames;
-        $this->firstList = array(25, 50, 75, 100);
-    }
-    function countOcc($element, $array) {
+
+    private function countOcc($element, $array) {
         $count = 0;
         foreach ($array as $arrayElement) {
             if ($arrayElement == $element) {
@@ -18,7 +14,7 @@ class GameGenerator {
         }
         return $count;
     }
-    function fillFirstListValues() {
+    private function fillFirstListValues() {
         $this->numbers = array();
         $indexes = array_rand ( $this->firstList, rand (1 , 4) );
         if(is_array($indexes)){
@@ -29,7 +25,7 @@ class GameGenerator {
             $this->numbers[]=$this->firstList[$indexes];
         }
     }
-    function setListOfNumbers() {
+    private function setListOfNumbers() {
         $this->fillFirstListValues();
         $numbersLeft = 6 - count($this->numbers);
         while ($numbersLeft > 0) {
@@ -40,11 +36,11 @@ class GameGenerator {
             }
         }
     }
-    function setTarget() {
+    private function setTarget() {
         $this->target = rand (101, 999);
     }
-    function getNumberOfGames() {
-        return $this->numberOfGames;
+    function __construct() {
+        $this->firstList = array(25, 50, 75, 100);
     }
     function getTarget() {
         $this->setTarget();
