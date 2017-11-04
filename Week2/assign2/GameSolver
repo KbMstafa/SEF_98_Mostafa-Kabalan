@@ -81,7 +81,6 @@ class GameSolver {
         $solution = "0";
         foreach ($this->numbersArray as $numbers) {
             foreach ($this->operatorsArray as $operators) {
-                $expressions = array();
                 $operatorsPlaces = $this->selectOperatorsPlaces();
                 foreach ($operatorsPlaces as $places) {
                     $expression = array();
@@ -104,9 +103,6 @@ class GameSolver {
                             }
                         }
                     }
-                    $expressions[] = $expression;
-                }
-                foreach ($expressions as $expression) {
                     $this->evaluate($expression, $solution);
                     $evaluation = eval('return '.$solution.';');
                     if ($this->target == $evaluation) {
