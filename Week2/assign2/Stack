@@ -21,9 +21,5 @@ class Stack {
 		return empty($this->stack);
 	}
 }
-$eval = new Stack;
-$character = 3;
-$eval->push($character);
-echo $eval->size();
 ?>
 
