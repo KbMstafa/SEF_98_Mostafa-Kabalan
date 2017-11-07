@@ -1,26 +1,25 @@
 <?php
-//require_once"Column";
-
 class Table {
-	private $tableName;
-	private $columns;
+    private $tableName;
+    private $columns;
 
-	function __construct($tableName) {
-		$this->tableName = $tableName;
-		$this->columns = array();
-	}
-	function create($columnArray) {
-		if (file_exists ($this->tableName)) {
-			echo "table {$this->tableName} already exist\n";
-		} else {
-			$table = fopen($this->tableName, 'w');
-			fputcsv($table, $columnArray);
-			fclose($table);
-			$this->open();
-		}
-	}
-	function open() {
-		return $this->tableName;
-	}
+    function __construct($tableName) {
+        $this->tableName = $tableName;
+        $this->columns = array();
+    }
+    function create($dir, $columnArray) {
+        if (file_exists ($this->tableName)) {
+            echo "Table {$this->tableName} already exist\n";
+        } else {
+            $table = fopen($dir.DIRECTORY_SEPARATOR.$this->tableName, 'w');
+            fputcsv($table, $columnArray);
+            fclose($table);
+            echo "\"{$this->tableName}\" CREATED\n";
+            return $this->open();
+        }
+    }
+    function open() {
+        return $this->tableName;
+    }
 }
 ?>

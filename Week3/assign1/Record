@@ -1,0 +1,8 @@
+<?php
+class Record {
+    private $columns;
+    private $inputs;
+
+    function __construct()
+}
+?>
