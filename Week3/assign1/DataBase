@@ -1,23 +1,23 @@
 <?php
 class DataBase {
-	private $dataBaseName;
+    private $dataBaseName;
 
-	function __construct($dataBaseName) {
-		$this->dataBaseName = $dataBaseName;
-	}
-	function create() {
-		$dirPath = "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
-		if (is_dir($dirPath)) {
-			echo "Database \"{$this->dataBaseName}\" already exist\n";
-		} else {
-			mkdir($dirPath);
-			echo "\"{$this->dataBaseName}\" CREATED\n";
-			return $this->open();
-		}
-	}
-	function open() {
-		return $this->dataBaseName;
-	}
+    function __construct($dataBaseName) {
+        $this->dataBaseName = $dataBaseName;
+    }
+    function create() {
+        $dirPath = "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
+        if (is_dir($dirPath)) {
+            echo "Database \"{$this->dataBaseName}\" already exist\n";
+        } else {
+            mkdir($dirPath);
+            echo "\"{$this->dataBaseName}\" CREATED\n";
+            return $this->open();
+        }
+    }
+    function open() {
+        return $this->dataBaseName;
+    }
     function delete() {
         $dirPath = "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
         if (!is_dir($dirPath)) {
