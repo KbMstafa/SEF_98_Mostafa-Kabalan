@@ -18,6 +18,23 @@ class DataBase {
 	function open() {
 		return $this->dataBaseName;
 	}
+    function delete() {
+        $dirPath = "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
+        if (!is_dir($dirPath)) {
+            echo "Database \"{$this->dataBaseName}\" not exist\n";
+        } else {
+            do {
+                echo "Are you sure you want to delete \"{$this->dataBaseName}\" ? (y/n): ";
+                $answer = trim(fgets(STDIN));
+                if (strcasecmp($answer, "y") == 0 || strcasecmp ($answer , "yes") == 0) {
+                    rmdir($dirPath);
+                    echo "\"{$this->dataBaseName}\" DELETED\n";
+                    break;
+                } elseif (strcasecmp($answer, "n") == 0 || strcasecmp ($answer , "no") == 0) {
+                    break;
+                }
+            } while (true);
+        }
+    }
 }
-
 ?> 
