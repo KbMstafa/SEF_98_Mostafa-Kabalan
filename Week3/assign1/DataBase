@@ -25,7 +25,7 @@ class DataBase {
         }
     }
     function open() {
-        return $this->dataBaseName;
+        return "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
     }
     function delete() {
         $dirPath = "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
