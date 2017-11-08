@@ -1,8 +1,33 @@
 <?php
 class Record {
+    private $tableName;
     private $columns;
     private $inputs;
 
-    function __construct()
+    function __construct($tableName) {
+        $this->tableName = $tableName;
+        $table = fopen($this->tableName, 'r');
+        $this->columns = fgetcsv($table);
+        fclose($table);
+        $this->inputs = array();
+    }
+    function add($row) {
+        if (count($row) != count($this->columns)) {
+            echo "\"".basename($this->tableName)."\" had ".count($this->columns)
+            ." columns\nYou should enter exactly 5 values\n";
+        } elseif (!is_numeric($row[0])) {
+            echo "\"{$row[0]}\" should be a number";
+        } else {
+            $table = fopen($this->tableName, "r+");
+            $header = fgetcsv($table);
+            while ($tableRow = fgetcsv($table)) {
+                if ($row[0] == $tableRow[0]) {
+                    echo "{$header[0]} \"$row[0]\" already exist\n";
+                    return;
+                }
+            }
+            fputcsv($table, $row);
+        }
+    }
 }
 ?>
