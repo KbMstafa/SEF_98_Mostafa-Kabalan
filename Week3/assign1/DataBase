@@ -3,18 +3,13 @@ class DataBase {
     private $dataBaseName;
 
     private function removeDir($dir) {
-        if (!is_dir($dir)) {
-            return unlink($dir);
-        }
         foreach (scandir($dir) as $file) {
             if ($file == '.' || $file == '..') {
                 continue;
             }
-            if (!$this->removeDir($dir.DIRECTORY_SEPARATOR.$file)) {
-                return false;
-            }
+            unlink($dir.DIRECTORY_SEPARATOR.$file);
         }
-        return rmdir($dir);
+        rmdir($dir);
     }
     function __construct($dataBaseName) {
         $this->dataBaseName = $dataBaseName;
@@ -38,8 +33,8 @@ class DataBase {
             echo "Database \"{$this->dataBaseName}\" not exist\n";
         } else {
             do {
-                echo "Are you sure you want to delete \"{$this->dataBaseName}\"?
-                 (y/n): ";
+                echo "Are you sure you want to delete"
+                ."\"{$this->dataBaseName}\"? (y/n): ";
                 $answer = trim(fgets(STDIN));
                 if (strcasecmp($answer, "y") == 0 
                     || strcasecmp ($answer, "yes") == 0) {
