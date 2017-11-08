@@ -13,8 +13,9 @@ class Record {
     }
     function add($row) {
         if (count($row) != count($this->columns)) {
-            echo "\"".basename($this->tableName)."\" had ".count($this->columns)
-            ." columns\nYou should enter exactly 5 values\n";
+            echo "\"".basename($this->tableName)."\" had ";
+            echo count($this->columns);
+            echo " columns\nYou should enter exactly 5 values\n";
         } elseif (!is_numeric($row[0])) {
             echo "\"{$row[0]}\" should be a number";
         } else {
@@ -22,11 +23,40 @@ class Record {
             $header = fgetcsv($table);
             while ($tableRow = fgetcsv($table)) {
                 if ($row[0] == $tableRow[0]) {
-                    echo "{$header[0]} \"$row[0]\" already exist\n";
+                    echo "\"$row[0]\" already exist\n";
                     return;
                 }
             }
             fputcsv($table, $row);
+            fclose($table);
+            echo "Record ADDED";
+        }
+    }
+    function delete($primaryKey) {
+        $deleted = false;
+        $table = fopen($this->tableName, "r");
+        $tableRows[] = fgetcsv($table);
+        while (!feof($table)) {
+            $row = fgetcsv($table);
+            if (($primaryKey != $row[0])) {
+                $tableRows[] = $row;
+            } else {
+                $deleted = true;
+            }
+        }
+        fclose($table);
+        if ($deleted) {
+            $table = fopen($this->tableName, "w");
+            foreach ($tableRows as $row) {
+                if ($row) {
+                    fputcsv($table, $row);
+                }
+            }
+            fclose($table);
+            echo "Record DELETED\n";
+        } else {
+            echo "\"{$primaryKey}\" not exist in any row of \"";
+            echo basename($this->tableName)."\"\n";
         }
     }
 }
