@@ -1,25 +1,28 @@
 <?php
 class Table {
+    private $databaseName;
     private $tableName;
     private $columns;
 
-    function __construct($tableName) {
+    function __construct($databaseName, $tableName, $columnsArray) {
+        $this->databaseName = $databaseName;
         $this->tableName = $tableName;
-        $this->columns = array();
+        $this->columns = $columnsArray;
     }
-    function create($dir, $columnArray) {
+    function create() {
         if (file_exists ($this->tableName)) {
             echo "Table {$this->tableName} already exist\n";
         } else {
-            $table = fopen($dir.DIRECTORY_SEPARATOR.$this->tableName, 'w');
-            fputcsv($table, $columnArray);
+            $file = $this->databaseName.DIRECTORY_SEPARATOR.$this->tableName;
+            $table = fopen($file, 'w');
+            fputcsv($table, $this->columns);
             fclose($table);
             echo "\"{$this->tableName}\" CREATED\n";
             return $this->open();
         }
     }
     function open() {
-        return $this->tableName;
+        return $this->databaseName.DIRECTORY_SEPARATOR.$this->tableName;
     }
 }
 ?>
