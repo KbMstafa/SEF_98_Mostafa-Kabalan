@@ -59,5 +59,25 @@ class Record {
             echo basename($this->tableName)."\"\n";
         }
     }
+    function get($value) {
+        $result = array();
+        $table = fopen($this->tableName, "r");
+        $header = fgetcsv($table);
+        //$result[] = $header;
+        while ($row = fgetcsv($table)) {
+            if (in_array($value, $row)) {
+                $result[] = $row;
+            }
+        }
+        fclose($table);
+        if (count($result) == 0) {
+            echo "No result in \"{$this->tableName}\"\n";
+        } else {
+            echo implode("  -  ", $header)."\n\n";
+            foreach ($result as $row) {
+                echo "\"".implode("\", \"", $row)."\"\n";
+            }
+        }
+    }
 }
 ?>
