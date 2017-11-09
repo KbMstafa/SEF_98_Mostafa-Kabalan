@@ -71,7 +71,8 @@ class Record {
         }
         fclose($table);
         if (count($result) == 0) {
-            echo "No result in \"{$this->tableName}\"\n";
+            echo "No result in \"";
+            echo basename($this->tableName)."\"\n";
         } else {
             echo implode("  -  ", $header)."\n\n";
             foreach ($result as $row) {
