@@ -1,0 +1,109 @@
+<?php
+class Query {
+    private $dataBase;
+    private $table;
+
+    function __construct($dataBase, $table = "Database/azq/dd") {
+        $this->dataBase = $dataBase;
+        $this->table = $table;
+    }
+    function analyzeQuery($query) {
+        $queryWords = explode(",", $query);
+        $actionWord = array_shift($queryWords);
+        switch (trim($actionWord)) {
+            case "CREATE": 
+                $object = array_shift($queryWords);
+                switch ($object) {
+                    case "DATABASE":
+                        $databaseName = trim($queryWords[0], "\"\n ");
+                        $database = new Database($databaseName);
+                        if($path = $database->create()) {
+                            $this->dataBase = $path;
+                        }
+                        break;
+                    case "TABLE":
+                        if ($this->dataBase != "Database") {
+                            $tableName = trim(array_shift($queryWords),"\"\n ");
+                            array_shift($queryWords);
+                            foreach ($queryWords as $column) {
+                                $columns[] = trim($column, "\"\n ");
+                            }
+                            $table = new Table($this->dataBase,
+                                                $tableName,
+                                                $columns);
+                            if($path = $table->create()) {
+                                $this->table = $path;
+                            }
+                        } else {
+                            echo "Can't create table";
+                            echo "create or open database first\n";
+                        }
+                        break;
+                }
+                break;
+
+            case "DELETE":
+                $object = array_shift($queryWords);
+                switch ($object) {
+                    case "DATABASE":
+                        $databaseName = trim($queryWords[0], "\"\n ");
+                        $database = new Database($databaseName);
+                        $database->delete();
+                        if (basename($this->dataBase) == $databaseName) {
+                            $this->dataBase = "Database";
+                        }
+                        break;
+                    case "ROW":
+                        if ($this->table != "") {
+                            $key = trim($queryWords[0], "\"\n ");
+                            $record = new Record($this->table);
+                            $record->delete($key);
+                        } else {
+                            echo "create or open table first\n";
+                        }
+                        break;
+                }
+                break;
+
+            case "OPEN":
+                $object = array_shift($queryWords);
+                switch ($object) {
+                    case "DATABASE":
+                        $databaseName = trim($queryWords[0], "\"\n ");
+                        $database = new Database($databaseName);
+                        if($path = $database->open()) {
+                            $this->dataBase = $path;
+                        }
+                        break;
+                    case "TABLE":
+                        $tableName = trim($queryWords[0], "\"\n ");
+                        $table = new Table($this->dataBase, $tableName);
+                        if($path = $table->open()) {
+                            $this->table = $path;
+                        }
+                        break;
+                    }
+                break;
+
+            case "ADD":
+                if ($this->table != "") {
+                    foreach ($queryWords as $input) {
+                        $inputs[] = trim($input, "\"\n ");
+                    }
+                    $record = new Record($this->table);
+                    $record->add($inputs);
+                }
+                break;
+
+            case "GET":
+                 if ($this->table != "") {
+                    $input = trim($queryWords[0], "\"\n ");
+                    $record = new Record($this->table);
+                    $record->get($input);
+                }
+                break;
+        }
+        return array($this->dataBase, $this->table);
+    }
+}
+?>
