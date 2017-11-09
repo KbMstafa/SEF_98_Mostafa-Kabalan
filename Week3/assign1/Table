@@ -4,14 +4,15 @@ class Table {
     private $tableName;
     private $columns;
 
-    function __construct($databaseName, $tableName, $columnsArray) {
+    function __construct($databaseName, $tableName, $columnsArray = array()) {
         $this->databaseName = $databaseName;
         $this->tableName = $tableName;
         $this->columns = $columnsArray;
     }
     function create() {
-        if (file_exists ($this->tableName)) {
-            echo "Table {$this->tableName} already exist\n";
+        if (file_exists(
+            $this->databaseName.DIRECTORY_SEPARATOR.$this->tableName)) {
+            echo "Table \"{$this->tableName}\" already exist\n";
         } else {
             $file = $this->databaseName.DIRECTORY_SEPARATOR.$this->tableName;
             $table = fopen($file, 'w');
@@ -22,7 +23,12 @@ class Table {
         }
     }
     function open() {
-        return $this->databaseName.DIRECTORY_SEPARATOR.$this->tableName;
+        if (file_exists(
+            $this->databaseName.DIRECTORY_SEPARATOR.$this->tableName)) {
+            return $this->databaseName.DIRECTORY_SEPARATOR.$this->tableName;
+        } else {
+            echo "\"{$this->tableName}\" not exist\n";
+        }
     }
 }
 ?>

@@ -25,7 +25,11 @@ class DataBase {
         }
     }
     function open() {
-        return "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
+        if (is_dir("Database".DIRECTORY_SEPARATOR.$this->dataBaseName)) {
+            return "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
+        } else {
+            echo "\"{$this->dataBaseName}\" not exist\n";
+        }
     }
     function delete() {
         $dirPath = "Database".DIRECTORY_SEPARATOR.$this->dataBaseName;
