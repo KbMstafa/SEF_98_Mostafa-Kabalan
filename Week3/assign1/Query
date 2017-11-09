@@ -1,9 +1,10 @@
+#!/usr/bin/env php
 <?php
 class Query {
     private $dataBase;
     private $table;
 
-    function __construct($dataBase, $table = "Database/azq/dd") {
+    function __construct($dataBase, $table) {
         $this->dataBase = $dataBase;
         $this->table = $table;
     }
@@ -13,7 +14,7 @@ class Query {
         switch (trim($actionWord)) {
             case "CREATE": 
                 $object = array_shift($queryWords);
-                switch ($object) {
+                switch (trim($object, "\"\n ")) {
                     case "DATABASE":
                         $databaseName = trim($queryWords[0], "\"\n ");
                         $database = new Database($databaseName);
@@ -36,7 +37,7 @@ class Query {
                             }
                         } else {
                             echo "Can't create table";
-                            echo "create or open database first\n";
+                            echo " create or open database first\n";
                         }
                         break;
                 }
@@ -44,13 +45,14 @@ class Query {
 
             case "DELETE":
                 $object = array_shift($queryWords);
-                switch ($object) {
+                switch (trim($object, "\"\n ")) {
                     case "DATABASE":
                         $databaseName = trim($queryWords[0], "\"\n ");
                         $database = new Database($databaseName);
                         $database->delete();
                         if (basename($this->dataBase) == $databaseName) {
                             $this->dataBase = "Database";
+                            $this->table = "";
                         }
                         break;
                     case "ROW":
@@ -67,12 +69,13 @@ class Query {
 
             case "OPEN":
                 $object = array_shift($queryWords);
-                switch ($object) {
+                switch (trim($object, "\"\n ")) {
                     case "DATABASE":
                         $databaseName = trim($queryWords[0], "\"\n ");
                         $database = new Database($databaseName);
                         if($path = $database->open()) {
                             $this->dataBase = $path;
+                            echo "\"{$databaseName}\" OPENED\n";
                         }
                         break;
                     case "TABLE":
@@ -80,6 +83,7 @@ class Query {
                         $table = new Table($this->dataBase, $tableName);
                         if($path = $table->open()) {
                             $this->table = $path;
+                            echo "\"{$tableName}\" OPENED\n";
                         }
                         break;
                     }
@@ -92,6 +96,8 @@ class Query {
                     }
                     $record = new Record($this->table);
                     $record->add($inputs);
+                } else {
+                    echo "create or open table first\n";
                 }
                 break;
 
@@ -100,6 +106,8 @@ class Query {
                     $input = trim($queryWords[0], "\"\n ");
                     $record = new Record($this->table);
                     $record->get($input);
+                } else {
+                    echo "create or open table first\n";
                 }
                 break;
         }

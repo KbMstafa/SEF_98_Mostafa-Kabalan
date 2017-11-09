@@ -1,0 +1,51 @@
+#!/usr/bin/env php
+<?php
+require_once "DataBase";
+require_once "Table";
+require_once "Record";
+require_once "Query";
+
+$database = "Database";
+$table = "";
+
+while (true) {
+    $input = trim(fgets(STDIN));
+    if ($input == "exit") {
+        break;
+    }
+    if (match($input)) {
+        $query = new Query($database, $table);
+        $output = $query->analyzeQuery($input);
+        $database = $output[0];
+        $table = $output[1];
+    } else {
+        echo "Invalid query\n";
+    }
+}
+function match($string) {
+    $commandsForm = array(
+    // create database
+    "/^\s?CREATE\s?,\s?DATABASE\s?,\s?\"\s?(\w\s?)+\"$/",
+    // delete database
+    "/^\s?DELETE\s?,\s?DATABASE\s?,\s?\"\s?(\w\s?)+\"$/",
+    // open database
+    "/^\s?OPEN\s?,\s?DATABASE\s?,\s?\"\s?(\w\s?)+\"$/",
+    // create table
+    "/^\s?CREATE\s?,\s?TABLE\s?,\s?\"(\w\s?)+\"\s?,\s?COLUMNS\s?(,\s?\"\s?(\w\s*\s?)+\"\s?)+$/",
+    // open table
+    "/^\s?OPEN\s?,\s?TABLE\s?,\s?\"\s?(\w\s?)+\"$/",
+    // add record
+    "/^\s?ADD\s?(,\s?\"\S?(\w\s?)+\")+$/",
+    // get record
+    "/^\s?GET\s?,\s?\"\s?(\w\s?)+\"$/",
+    // delete record
+    "/^\s?DELETE\s?,\s?ROW\s?,\s?\"\s?(\w\s?)+\"$/"
+    );
+    foreach ($commandsForm as $form) {
+        if (preg_match($form, $string)) {
+            return 1;
+        }
+    }
+    return 0;
+}
+?>

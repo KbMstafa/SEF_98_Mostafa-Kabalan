@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 class Record {
     private $tableName;
@@ -29,7 +30,7 @@ class Record {
             }
             fputcsv($table, $row);
             fclose($table);
-            echo "Record ADDED";
+            echo "Record ADDED\n";
         }
     }
     function delete($primaryKey) {
@@ -63,7 +64,6 @@ class Record {
         $result = array();
         $table = fopen($this->tableName, "r");
         $header = fgetcsv($table);
-        //$result[] = $header;
         while ($row = fgetcsv($table)) {
             if (in_array($value, $row)) {
                 $result[] = $row;
