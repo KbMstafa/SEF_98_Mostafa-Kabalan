@@ -7,13 +7,16 @@ require_once "Query";
 
 $database = "Database";
 $table = "";
+echo "type \"exit\" to exit or \"help\" for help:\n";
 
 while (true) {
     $input = trim(fgets(STDIN));
     if ($input == "exit") {
         break;
     }
-    if (match($input)) {
+    if ($input == "help") {
+        help($database, $table);
+    } elseif (match($input)) {
         $query = new Query($database, $table);
         $output = $query->analyzeQuery($input);
         $database = $output[0];
@@ -47,5 +50,19 @@ function match($string) {
         }
     }
     return 0;
+}
+function help($database, $table) {
+    echo "\tCREATE,DATABASE,\"Database name\"\n";
+    echo "\tDELETE,DATABASE,\"Database name\"\n";
+    echo "\tOPEN,DATABASE,\"Database name\"\n";
+    if ($database != "Database") {
+        echo "\tCREATE,TABLE,\"TABLENAME\",COLUMNS,\"Column1\",\"Column2\",....\n";
+        echo "\tOPEN,TABLE,\"Database name\"\n";
+    }
+    if ($table != "") {
+        echo "\tADD,\"Value1\",\"Value2\",....\n";
+        echo "\tGET,\"Value\"\n";
+        echo "\tDELETE,ROW,\"Value\"\n";
+    }
 }
 ?>
