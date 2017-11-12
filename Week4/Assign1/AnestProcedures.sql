@@ -16,6 +16,7 @@ INSERT INTO AnestProcedures VALUES (0, "'Kamal'", "12:00", "13:30");
 INSERT INTO AnestProcedures VALUES (0, "'Kamal'", "13:30", "14:30");
 INSERT INTO AnestProcedures VALUES (0, "'Kamal'", "18:30", "19:00");
 
+
 DELIMITER @
 
 CREATE FUNCTION count_overlap (name varchar(30), curTime time)
@@ -24,7 +25,7 @@ CREATE FUNCTION count_overlap (name varchar(30), curTime time)
         DECLARE total integer;
         SELECT COUNT(proc_id) INTO total
         FROM AnestProcedures
-        WHERE ( name = IDanest_name )
+        WHERE ( name = anest_name )
                 AND ( ( curTime >= start_time ) AND ( curTime < end_time ) ) ;
         RETURN total;
     END; @
@@ -44,3 +45,6 @@ CREATE FUNCTION max_overlap (name varchar(30), startT time, endT time)
     END; @
 
 DELIMITER ;
+
+SELECT proc_id, max_overlap(anest_name, start_time, end_time) AS max_inst_count
+FROM AnestProcedures;
