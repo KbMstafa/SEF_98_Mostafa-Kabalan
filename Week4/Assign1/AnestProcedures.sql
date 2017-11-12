@@ -20,4 +20,14 @@ CREATE FUNCTION count_overlap (name varchar(30), curTime time)
         RETURN total;
     END; @
 
+CREATE FUNCTION count_overlap (curTime time, start_time time, end_time time)
+    RETURNS integer
+    BEGIN
+        DECLARE total integer;
+        SELECT COUNT(proc_id) INTO total
+        FROM AnestProcedures
+        WHERE curTime BETWEEN start_time AND end_time;
+        RETURN total;
+    END;
+
 DELIMITER ;
