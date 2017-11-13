@@ -12,7 +12,7 @@ CREATE TRIGGER FY_start
     BEFORE INSERT
     ON FiscalYearTable FOR EACH ROW
     BEGIN
-        IF ( YEAR ( NEW.start_date ) = NEW.fiscal_year ) THEN
+        IF ( YEAR ( NEW.start_date ) = NEW.fiscal_year - 1 ) THEN
             IF ( MONTH ( NEW.start_date ) = 10 ) THEN
                 IF ( DAY ( NEW.start_date ) <> 1 ) THEN
                     SIGNAL SQLSTATE '45000'
@@ -32,7 +32,7 @@ CREATE TRIGGER FY_end
     BEFORE INSERT
     ON FiscalYearTable FOR EACH ROW
     BEGIN
-        IF ( YEAR ( NEW.end_date ) = NEW.fiscal_year + 1 ) THEN
+        IF ( YEAR ( NEW.end_date ) = NEW.fiscal_year ) THEN
             IF ( MONTH ( NEW.end_date ) = 9 ) THEN
                 IF ( DAY ( NEW.end_date ) <> 30 ) THEN
                     SIGNAL SQLSTATE '45000'
