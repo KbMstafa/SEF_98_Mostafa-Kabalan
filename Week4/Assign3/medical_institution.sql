@@ -19,3 +19,8 @@ CREATE TABLE IF NOT EXISTS LegalEvents (
     change_date DATE NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS ClaimStatusCodes (
+    claim_status VARCHAR(2) NOT NULL,
+    claim_status_desc VARCHAR(30) NOT NULL,
+    claim_seq INT NOT NULL UNIQUE
+);
