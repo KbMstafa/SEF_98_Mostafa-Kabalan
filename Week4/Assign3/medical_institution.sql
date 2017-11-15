@@ -9,5 +9,13 @@ CREATE TABLE IF NOT EXISTS Claims (
 
 CREATE TABLE IF NOT EXISTS Defendants (
     claim_id INT NOT NULL,
-    defendant_name VARCHAR(30)
+    defendant_name VARCHAR(30) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS LegalEvents (
+    claim_id INT NOT NULL,
+    defendant_name VARCHAR(30) NOT NULL,
+    claim_status VARCHAR(2) NOT NULL,
+    change_date DATE NOT NULL
+);
+
