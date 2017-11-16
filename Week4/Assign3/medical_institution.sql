@@ -72,7 +72,7 @@ FROM
         LegalEvents AS LE, ClaimStatusCodes AS S2C
     WHERE
         LE.claim_status = S2C.claim_status
-    GROUP BY LE.defendant_name , LE.claim_id
+    GROUP BY LE.claim_id, LE.defendant_name
     ORDER BY LE.claim_id) AS LC, Claims
     WHERE
         Claims.claim_id = LC.claim_id
