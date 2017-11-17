@@ -9,7 +9,28 @@
         else {
             echo "<H1>Welcome to sakila : \n</H1>";
         }
-        
+        $query = "SELECT 
+                      f.film_id,
+                      f.title,
+                      f.rental_duration,
+                      f.rental_rate
+                  FROM
+                      film AS f,
+                      inventory AS i
+                  WHERE
+                      i.film_id = f.film_id
+                  GROUP BY i.film_id;";
+        $result = $dbCon->prepare($query);
+        $result->execute();
+        $result-> bind_result($id, $title, $duration, $amount);
+        echo "<select name = \"films\">";
+        while ($result->fetch()) {
+            echo "<option value='".$id."'>
+                      $title &emsp; \"$amount for $duration days\"
+                  </option>";
+        }
+        echo "</select></br></br>";
+        echo "<input type = 'submit' value = 'rent' name = 'rent'>";
         $dbCon->Close();
         ?>
     </form>
