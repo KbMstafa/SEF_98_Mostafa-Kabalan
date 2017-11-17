@@ -30,6 +30,22 @@
                   </option>";
         }
         echo "</select></br></br>";
+        $query = "SELECT 
+                      customer_id, first_name, last_name
+                  FROM
+                      customer
+                  WHERE
+                      active = 1;";
+        $result = $dbCon->prepare($query);
+        $result->execute();
+        $result-> bind_result($id, $firstname, $lastname);
+        echo "<select name = \"customers\">";
+        while ($result->fetch()) {
+            echo "<option value='".$id."'>
+                      $firstname $lastname
+                  </option>";
+        }
+        echo "</select></br></br>";
         echo "<input type = 'submit' value = 'rent' name = 'rent'>";
         $dbCon->Close();
         ?>
