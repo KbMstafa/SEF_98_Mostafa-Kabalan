@@ -10,15 +10,20 @@
             echo "<H1>Welcome to sakila : \n</H1>";
         }
         $query = "SELECT 
-                      f.film_id,
-                      f.title,
-                      f.rental_duration,
-                      f.rental_rate
+                      f.film_id, f.title, 
+                      f.rental_duration, f.rental_rate
                   FROM
                       film AS f,
                       inventory AS i
                   WHERE
                       i.film_id = f.film_id
+                      AND inventory_id NOT IN (SELECT DISTINCT
+                              inventory_id
+                          FROM
+                              rental
+                          WHERE
+                              return_date IS NULL
+                          ORDER BY inventory_id)
                   GROUP BY i.film_id;";
         $result = $dbCon->prepare($query);
         $result->execute();
