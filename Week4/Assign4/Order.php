@@ -1,7 +1,7 @@
 <HTML>
     <form name = "customer input" action = "OrderProcess.php" method = "post">
         <?php
-        require_once "Config.php";
+        session_start();
         require "MySQLWrap.php";
         $con = new MySQLWrap();
         $query = "SELECT 
@@ -28,6 +28,8 @@
                       $filmInfo[1]
                   </option>";
         }
+        echo "</select></br></br>";
+
         $query = "SELECT 
                       customer_id, first_name, last_name
                   FROM
@@ -43,8 +45,16 @@
                   </option>";
         }
         echo "</select></br></br>";
+
         echo "<input type = 'submit' value = 'rent' name = 'rent'>";
-        $dbCon->Close();
+        if(isset($_SESSION["rent"])) {
+            if($_SESSION["rent"]) {
+                echo "rent success";
+            } else {
+                echo "rent failed";
+            }
+        }
+        unset($_SESSION["rent"]);
         ?>
     </form>
 </HTML>
