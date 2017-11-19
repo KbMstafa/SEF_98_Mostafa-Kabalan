@@ -13,6 +13,14 @@ class MySQLWrap {
             echo "<H1>Welcome to sakila : \n</H1>";
         }
     }
+    function selectFilms($query) {
+        $result = $this->dbCon->prepare($query);
+        $result->execute();
+        $result-> bind_result($id, $title, $duration, $amount);
+        while ($result->fetch()) {
+            yield array($id, "$title &emsp; \"$amount for $duration days\"");
+        }
+    }
 
 }
 ?>
