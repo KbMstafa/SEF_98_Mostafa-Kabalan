@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class MySQLWrap {
     private $dbCon;
 
@@ -21,6 +21,7 @@ class MySQLWrap {
             yield array($id, "$title &emsp; \"$amount for $duration days\"");
         }
     }
+
     function selectCustomers($query) {
         $result = $this->dbCon->prepare($query);
         $result->execute();
@@ -38,6 +39,7 @@ class MySQLWrap {
         $result->fetch();
         return array($invId, $staffId);
     }
+
     function insertRental($query, $invId, $cusId, $staffId) {
         $result = $this->dbCon->prepare($query);
         $result->bind_param("iii", $invId, $cusId, $staffId);
