@@ -28,20 +28,18 @@
                       $filmInfo[1]
                   </option>";
         }
-        echo "</select></br></br>";
         $query = "SELECT 
                       customer_id, first_name, last_name
                   FROM
                       customer
                   WHERE
-                      active = 1;";
-        $result = $dbCon->prepare($query);
-        $result->execute();
-        $result-> bind_result($id, $firstname, $lastname);
+                      active = 1
+                  ORDER BY first_name;";
         echo "<select name = \"customers\">";
-        while ($result->fetch()) {
-            echo "<option value='".$id."'>
-                      $firstname $lastname
+        $customers = $con->selectCustomers($query);
+        foreach ($customers as $customerInfo) {
+            echo "<option value='".$customerInfo[0]."'>
+                      $customerInfo[1]
                   </option>";
         }
         echo "</select></br></br>";
