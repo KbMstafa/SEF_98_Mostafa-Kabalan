@@ -21,6 +21,14 @@ class MySQLWrap {
             yield array($id, "$title &emsp; \"$amount for $duration days\"");
         }
     }
+    function selectCustomers($query) {
+        $result = $this->dbCon->prepare($query);
+        $result->execute();
+        $result-> bind_result($id, $firstname, $lastname);
+        while ($result->fetch()) {
+            yield array($id, "$firstname $lastname");
+        }
+    }
 
 }
 ?>
