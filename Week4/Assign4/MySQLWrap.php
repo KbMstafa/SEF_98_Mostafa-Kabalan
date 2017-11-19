@@ -30,5 +30,13 @@ class MySQLWrap {
         }
     }
 
+    function selectInventory($query) {
+        $result = $this->dbCon->prepare($query);
+        $result->bind_param("i", $_POST["films"]);
+        $result->execute();
+        $result-> bind_result($invId, $staffId);
+        $result->fetch();
+        return array($invId, $staffId);
+    }
 }
 ?>
