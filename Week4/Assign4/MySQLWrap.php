@@ -38,5 +38,15 @@ class MySQLWrap {
         $result->fetch();
         return array($invId, $staffId);
     }
+    function insertRental($query, $invId, $cusId, $staffId) {
+        $result = $this->dbCon->prepare($query);
+        $result->bind_param("iii", $invId, $cusId, $staffId);
+        if($result->execute()) {
+            $_SESSION["rent"] = 1;
+        } else {
+            $_SESSION["rent"] = 0;
+        }
+        header("Location: Order.php");
+    }
 }
 ?>
