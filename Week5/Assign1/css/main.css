@@ -694,6 +694,122 @@ font-weight: normal;
     background-size: cover;
 }
 
+#contact {
+    float: left;
+    width: 100%;
+    height: 655px;
+}
+
+#contact-form {
+    float: left;
+    padding: 0 10px;
+    width: 47.918%;
+    height: 100%;
+}
+
+#contact-form > h2 {
+    float: left;
+    margin: 64px 0 30px 0 ;
+    color: #413d4b;
+}
+
+.inputs {
+    width: 96%;
+    height: 35px;
+    resize: none;
+    display: block;
+    padding: 13px 0 0 18px;
+    margin-bottom: 25px;
+    border: 1px solid #c7c6c9;
+}
+
+#message {
+    height: 187px;
+}
+
+::placeholder {
+    color: #b0afb3;
+}
+
+#contact-form > a.button {
+    margin: 25px 0;
+}
+
+#contact-form > a.button:hover {
+    color: #a8a7ab;
+    border: 1px solid #a8a7ab;
+}
+
+#client {
+    float: left;
+    margin-left: 80px;
+    width: 41.668%;
+    height: 100%;
+}
+
+#our-client {
+    width: 100%;
+    height: 118px;
+}
+
+#our-client > h2 {
+    float: left;
+    margin: 62px 0 30px 0 ;
+    color: #413d4b;
+}
+
+#logos {
+    margin: 0 10px;
+    height: 72%;
+    width: 95%;
+}
+
+.client-logo {
+    float: left;
+    width: 50%;
+    height: 20%;
+}
+
+#zara {
+    background: transparent url('../img/zara.png') no-repeat;
+}
+
+#mango {
+    background: transparent url('../img/mango.png') no-repeat;
+}
+
+#barneys {
+    background: transparent url('../img/barneys.png') no-repeat;
+}
+
+#gucci {
+    background: transparent url('../img/gucci.png') no-repeat;
+}
+
+#calvin {
+    background: transparent url('../img/calvin.png') no-repeat;
+}
+
+#nike {
+    background: transparent url('../img/nike.png') no-repeat;
+}
+
+#converse {
+    background: transparent url('../img/converse.png') no-repeat;
+}
+
+#puma {
+    background: transparent url('../img/puma.png') no-repeat;
+}
+
+#levis {
+    background: transparent url('../img/levis.png') no-repeat;
+}
+
+#bong {
+    background: transparent url('../img/bong.png') no-repeat;
+}
+
 /* ==========================================================================
    Media Queries
    ========================================================================== */
