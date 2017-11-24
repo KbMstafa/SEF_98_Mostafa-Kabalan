@@ -592,6 +592,108 @@ font-weight: normal;
     border: 1px solid #a8a7ab;
 }
 
+#testimonials {
+    float: left;
+    width: 100%;
+    height: 500px;
+    background: -webkit-linear-gradient(left, rgba(9, 5, 47, .85), rgba(49, 29, 94, .85)), url(../img/testimonials-background.jpg) no-repeat;
+    background: -o-linear-gradient(left, rgba(9, 5, 47, .85), rgba(49, 29, 94, .85)), url(../img/testimonials-background.jpg) no-repeat;
+    background: linear-gradient(to right, rgba(9, 5, 47, .85), rgba(49, 29, 94, .85)), url(../img/testimonials-background.jpg) no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+}
+
+#comma-quotation {
+    height: 50px;
+    width: 50px;
+    margin: 40px auto 0 auto;
+    background: transparent url('../img/quotations.png') no-repeat;
+    background-size: cover;
+}
+
+#testimonials-text {
+    margin: 30px 90px;
+    color: #aeacb7;
+}
+
+#person > h5 {
+    margin: 55px 0 0 0;
+    font-size: 9pt;
+    color: #ebeaed;
+}
+
+#person > p {
+    color: #7c788c;
+    font-size: 8.5pt;
+    font-weight: 720;
+    margin: 5px 0 0 0;
+}
+
+.persons-photos {
+    width: 446px;
+    height: 80px;
+    padding: 0;
+    margin: 100px auto;
+    list-style: none;
+    text-align: center;
+}
+
+.persons-photos li {
+    float: left;
+    display: inline;
+    margin: 0 4px;
+}
+
+.persons-photos li a {
+    width: 50px;
+    height: 50px;
+    display: block;
+    border-radius: 50%;
+}
+
+.persons-photos li a:hover,
+.persons-photos li a.active {
+    width: 70px;
+    height: 70px;
+}
+
+#left {
+    background: transparent url('../img/left.png') no-repeat;
+    background-size: cover;
+}
+
+
+#person1 {
+    background: transparent url('../img/person1.jpg') no-repeat;
+    background-size: cover;
+}
+
+#person2 {
+    background: transparent url('../img/person2.jpg') no-repeat;
+    background-size: cover;
+}
+
+#person3 {
+    background: transparent url('../img/person3.jpg') no-repeat;
+    background-size: cover;
+}
+
+#person4 {
+    background: transparent url('../img/person4.jpg') no-repeat;
+    background-size: cover;
+}
+
+#person5 {
+    background: transparent url('../img/person5.jpg') no-repeat;
+    background-size: cover;
+}
+
+#right {
+    background: transparent url('../img/right.png') no-repeat;
+    background-size: cover;
+}
+
 /* ==========================================================================
    Media Queries
    ========================================================================== */
