@@ -261,6 +261,128 @@ font-weight: normal;
     font-weight: bold;
 }
 
+#expertise {
+    float: left;
+    height: 755px;
+    width: 100%;
+    padding: 70px, 0;
+}
+
+.title {
+    margin: 70px, 0;
+    text-align: center;
+}   
+
+.title > H2 {
+    margin: 65px 0 0 0;
+}
+
+.title > p {
+    margin: 0;
+    color: #8e8d90;
+}
+
+.title > .separator {
+    border: 1px solid #c6c4c9;
+}
+
+#expertise-items {
+    width: 96%;
+    height: 505px;
+    margin-left: 2%
+}
+
+.top-items {
+    margin: 10px, 0;
+    width: 100%;
+    height: 50%;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.bottom-items {
+    width: 100%;
+    height: 50%;
+    
+}
+
+.item {
+    float: left;
+    width: 33.2%;
+    height: 100%;
+    border-right: 1px solid #ebebeb;
+}
+
+.item > a {
+    margin: 20px 0 0 33.5%;
+    display: block;
+    width: 33.2%;
+    height: 100px;
+}
+
+.last {
+    border-right: none;
+}
+
+#web > a {
+    background: transparent url('../img/web-logo.png') no-repeat;
+}
+
+#web > a:hover {
+    background: transparent url('../img/web-hover.png') no-repeat;
+}
+
+#branding > a {
+    background: transparent url('../img/branding-logo.png') no-repeat;
+}
+
+#branding > a:hover {
+    background: transparent url('../img/branding-hover.png') no-repeat;
+}
+
+#mobile > a {
+    background: transparent url('../img/mobile-logo.png') no-repeat;
+}
+
+#mobile > a:hover {
+    background: transparent url('../img/mobile-hover.png') no-repeat;
+}
+
+
+#optimization > a {
+    background: transparent url('../img/opimization-logo.png') no-repeat;
+}
+
+#optimization > a:hover {
+    background: transparent url('../img/opimization-hover.png') no-repeat;
+}
+
+#game > a {
+    background: transparent url('../img/game-logo.png') no-repeat;
+}
+
+#game > a:hover {
+    background: transparent url('../img/game-hover.png') no-repeat;
+}
+
+#love > a {
+    background: transparent url('../img/love-logo.png') no-repeat;
+}
+
+#love > a:hover {
+    background: transparent url('../img/love-hover.png') no-repeat;
+}
+
+.item > h5 {
+    font-size: 11pt;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.item > p {
+    text-align: center;
+    color: #7a7a7a;
+}
 
 /* ==========================================================================
    Media Queries
