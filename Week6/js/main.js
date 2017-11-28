@@ -11,7 +11,9 @@ var disk6 = document.getElementById("disk6");
 var disk7 = document.getElementById("disk7");
 var disk8 = document.getElementById("disk8");
 
+var time = 1000;
 
+var disks = [disk1 ,disk2 ,disk3 ,disk4 ,disk5 ,disk6 ,disk7 ,disk8];
 
 function diskPop(diskNumber, source, destination) 
 {
@@ -67,3 +69,22 @@ function diskDrop(diskNumber, source, destination)
     }, 20);
 }
 
+function Hanoi(disk, source, dest, aux) 
+{
+    if (disk == 0) {
+        setTimeout(diskPop, time, getDisk(disk), source, dest); 
+        time += 1000;          
+    } else {
+        Hanoi(disk - 1, source, aux, dest);
+        setTimeout(diskPop, time, getDisk(disk), source, dest);
+        time += 1000;
+        Hanoi(disk - 1, aux, dest, source);
+    }
+}
+
+function getDisk(n) 
+{
+    return disks[n];
+}
+
+Hanoi (7, left, right, center);
