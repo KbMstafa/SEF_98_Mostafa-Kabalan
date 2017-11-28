@@ -12,6 +12,7 @@ var disk7 = document.getElementById("disk7");
 var disk8 = document.getElementById("disk8");
 
 
+
 function diskPop(diskNumber, source, destination) 
 {
     var interval = setInterval(function pop() {
@@ -23,6 +24,32 @@ function diskPop(diskNumber, source, destination)
             diskMove(diskNumber, source, destination);
         }
         diskNumber.setAttribute("y", newY);
+    }, 20);
+}
+
+function diskMove(diskNumber, source, destination) 
+{
+    var interval = setInterval(function move() 
+    {
+        var xSource = source.tower.getAttribute("x");
+        var xDestination = destination.tower.getAttribute("x");
+        if (xSource < xDestination) {
+            var x = diskNumber.getAttribute("x");
+            var newX = parseInt(x) + 40;
+            if (newX > xDestination - (diskNumber.getAttribute("width")/2 - 2)) {
+                clearInterval(interval);
+                diskDrop(diskNumber, left, destination);
+            }
+            diskNumber.setAttribute("x", newX);
+        } else {
+            var x = diskNumber.getAttribute("x");
+            var newX = parseInt(x) - 40;
+            if (newX < xDestination - (diskNumber.getAttribute("width")/2 - 6)) {
+                clearInterval(interval);
+                diskDrop(diskNumber, left, destination);
+            }
+            diskNumber.setAttribute("x", newX);
+        }
     }, 20);
 }
 
