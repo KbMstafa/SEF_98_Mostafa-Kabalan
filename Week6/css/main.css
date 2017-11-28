@@ -55,6 +55,22 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+#title {
+    text-align: center;
+}
+
+#towers {
+    height: 100%;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.grid {
+    height: 100%;
+    width: 800px;
+    margin: 0 auto;
+}
+
 
 
 
