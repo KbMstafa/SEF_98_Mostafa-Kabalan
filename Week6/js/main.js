@@ -53,3 +53,17 @@ function diskMove(diskNumber, source, destination)
     }, 20);
 }
 
+function diskDrop(diskNumber, source, destination) 
+{
+    var interval = setInterval(function drop() 
+    {
+        var y = diskNumber.getAttribute("y");
+        var newY = parseInt(y) + 10;
+        if (newY >= destination.top) {
+            clearInterval(interval);
+            destination.top -= 20;
+        }
+        diskNumber.setAttribute("y", newY);
+    }, 20);
+}
+
