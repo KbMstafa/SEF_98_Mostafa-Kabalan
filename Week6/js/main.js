@@ -87,4 +87,8 @@ function getDisk(n)
     return disks[n];
 }
 
-Hanoi (7, left, right, center);
+function solve() 
+{
+    document.getElementById('Button').disabled = true;
+    Hanoi (7, left, right, center);
+}

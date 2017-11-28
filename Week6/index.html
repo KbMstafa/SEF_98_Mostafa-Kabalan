@@ -24,7 +24,7 @@
             </h1>
         </div>
         <div class="grid">
-            <svg id="towers" width="800" height="800" viewBox="0 0 800 800">
+            <svg id="towers" width="800" height="300" viewBox="0 0 800 300">
                 <rect x="20" y="292" width="200" height="12" ry="5"/>
                 <rect id="left" x="116" y="100" width="8" height="200" ry="5"/>
 
@@ -43,8 +43,13 @@
                 <rect id="disk2" x="90" y="152" width="60" height="20" fill="violet" ry="10"/>
                 <rect id="disk1" x="100" y="132" width="40" height="20" fill="pink" ry="10"/>
             </svg>
-        </div>
 
+             <div id="buttons">
+                <button id="Button" onclick="solve(); ">Solve</button>
+                <button onclick="window.location.reload();">Reset</button>
+            </div>
+
+        </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
