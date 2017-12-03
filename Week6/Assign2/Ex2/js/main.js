@@ -44,6 +44,12 @@ var Note = {
     }
 };
 
+var addButton = document.getElementById("add");
+addButton.addEventListener("click", addNote);
+
+var body = document.getElementById("body");
+body.addEventListener("load", load());
+
 if (typeof Object.create != 'function') {
     Object.create = function(o) {
         var F = function() {};
@@ -54,21 +60,24 @@ if (typeof Object.create != 'function') {
 
 function load() {
     var Notes = JSON.parse(localStorage.getItem("Note"));
-    var len = Notes.length;
-    for (var i = 0; i < len; i++) {
-        var obj = JSON.parse(localStorage.getItem(Notes[i]));
-        obj.__proto__ = Note;
-        obj.display(Notes[i]);
+    if (Notes != null) {
+        var len = Notes.length;
+        for (var i = 0; i < len; i++) {
+            var obj = JSON.parse(localStorage.getItem(Notes[i]));
+            obj.__proto__ = Note;
+            obj.display(Notes[i]);
+        }
+        newId = Notes[len - 1] + 1;
     }
-    newId = Notes[len - 1] + 1;
 }
 
 function removeNote(input) {
-    document.getElementById('list').removeChild( input.parentNode.parentNode );
-    localStorage.removeItem(input.parentNode.parentNode.id);
+    var div = input.parentNode.parentNode;
+    document.getElementById('list').removeChild( div );
+    localStorage.removeItem(div.id);
 
     var Notes = JSON.parse(localStorage.getItem("Note"));
-    NoteIndex = Notes.indexOf(parseInt(input.parentNode.parentNode.id));
+    NoteIndex = Notes.indexOf(parseInt(div.id));
     Notes.splice(NoteIndex, 1);
     localStorage.setItem("Note", JSON.stringify(Notes));
 }
@@ -84,7 +93,7 @@ function addNote() {
         }
     } else {
         if (isNaN(newId)) {
-            newId = 1;
+            newId = 1;  
         }
 
         document.getElementById('title').value="";
