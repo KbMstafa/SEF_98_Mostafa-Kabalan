@@ -1,9 +1,56 @@
 var newId = parseInt(localStorage.key(localStorage.length - 1)) + 1;
 
+var options = { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour:'numeric',
+            minute:'numeric'
+        };
+var dateTimeFormat = new Intl.DateTimeFormat('en-US',options);
+
+var Note = {
+    title: "",
+    date: "",
+    description: "",
+    display: function(id) {
+        var div = document.createElement('div');
+        div.id = id;
+        div.className = 'do';
+        div.innerHTML = '<div class="note">\
+                             <h1>' + this.title + '</h1>\
+                             <h4>added: ' + this.date + '</h4>\
+                             <h2>\
+                                 <textarea id="desc" cols="24" disabled="true">'
+                                  + this.description + 
+                                '</textarea>\
+                             </h2>\
+                         </div>\
+                         \
+                         <div class="clear">\
+                             <input type="button" value="X" onclick="removeNote(this)">\
+                         </div>';
+        document.getElementById('list').insertAdjacentElement('afterbegin', div);
+    },
+    store: function(id) {
+        localStorage.setItem(id, JSON.stringify(this));
+    }
+};
+
+if (typeof Object.create != 'function') {
+    Object.create = function(o) {
+        var F = function() {};
+        F.prototype = o;
+        return new F();
+    }
+}
+
 function load() {
     for ( var len = localStorage.length, i = 0; i < len; i++ ) {
-        var obj = localStorage.getItem( localStorage.key( i ) );
-        displayNote(localStorage.key( i ), obj);
+        var obj = JSON.parse(localStorage.getItem( localStorage.key( i )) );
+        obj.__proto__ = Note;
+        obj.display(localStorage.key( i ));
     }
 }
 
@@ -22,25 +69,23 @@ function addNote() {
             resetCursor(document.getElementById('description'))
         }
     } else {
-        document.getElementById('title').value="";
-        document.getElementById('description').value="";
         if (isNaN(newId)) {
             newId = 1;
         }
 
-        var inHTML = '<div class="note">\
-                          <h1>' + title + '</h1>\
-                          <h3>added: ' + Date() + '</h3>\
-                          <h2><textarea id="desc" cols="24" disabled="true">' + description + '</textarea></h2>\
-                      </div>\
-                      \
-                      <div class="clear">\
-                          <input type="button" value="X" onclick="removeNote(this)">\
-                      </div>';
+        document.getElementById('title').value="";
+        document.getElementById('description').value="";
+
+        var newNote = Object.create(Note);
+        newNote.title = title;
+        newNote.date = dateTimeFormat.format(new Date());
+        newNote.description = description;
+        newNote.store(newId);
+        newNote.display(newId);
+        console.log(newNote);
+
         var id = newId.toString();
         newId++;
-        displayNote(id, inHTML);
-        localStorage.setItem(id, inHTML);
     }
 }
 
