@@ -1,4 +1,4 @@
-var newId = parseInt(localStorage.key(localStorage.length - 1)) + 1;
+var newId = 1;
 
 var options = { 
             weekday: 'long', 
@@ -34,6 +34,12 @@ var Note = {
         document.getElementById('list').insertAdjacentElement('afterbegin', div);
     },
     store: function(id) {
+        var Notes = JSON.parse(localStorage.getItem("Note"));
+        if (Notes == null) {
+            Notes = [];
+        }
+        Notes = Notes.concat([id]);
+        localStorage.setItem("Note", JSON.stringify(Notes));
         localStorage.setItem(id, JSON.stringify(this));
     }
 };
@@ -47,16 +53,24 @@ if (typeof Object.create != 'function') {
 }
 
 function load() {
-    for ( var len = localStorage.length, i = 0; i < len; i++ ) {
-        var obj = JSON.parse(localStorage.getItem( localStorage.key( i )) );
+    var Notes = JSON.parse(localStorage.getItem("Note"));
+    var len = Notes.length;
+    for (var i = 0; i < len; i++) {
+        var obj = JSON.parse(localStorage.getItem(Notes[i]));
         obj.__proto__ = Note;
-        obj.display(localStorage.key( i ));
+        obj.display(Notes[i]);
     }
+    newId = Notes[len - 1] + 1;
 }
 
 function removeNote(input) {
     document.getElementById('list').removeChild( input.parentNode.parentNode );
     localStorage.removeItem(input.parentNode.parentNode.id);
+
+    var Notes = JSON.parse(localStorage.getItem("Note"));
+    NoteIndex = Notes.indexOf(parseInt(input.parentNode.parentNode.id));
+    Notes.splice(NoteIndex, 1);
+    localStorage.setItem("Note", JSON.stringify(Notes));
 }
 
 function addNote() {
@@ -82,7 +96,6 @@ function addNote() {
         newNote.description = description;
         newNote.store(newId);
         newNote.display(newId);
-        console.log(newNote);
 
         var id = newId.toString();
         newId++;
