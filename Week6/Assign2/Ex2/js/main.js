@@ -54,7 +54,6 @@ function displayNote(id, inHTML) {
 
 function resetCursor(textarea) { 
         textarea.focus(); 
-        textarea.setSelectionRange(0, 0); 
 }
 
 /*var textarea = document.getElementById('desc');
