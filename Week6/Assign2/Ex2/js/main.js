@@ -17,9 +17,9 @@ function addNote() {
     var description = document.getElementById('description').value;
     if(title == "" || description == "") {
         if(title == "") {
-            alert("title is empty");
+            resetCursor(document.getElementById('title'))
         } else {
-            alert("description is empty");
+            resetCursor(document.getElementById('description'))
         }
     } else {
         document.getElementById('title').value="";
@@ -31,7 +31,7 @@ function addNote() {
         var inHTML = '<div class="note">\
                           <h1>' + title + '</h1>\
                           <h3>added: ' + Date() + '</h3>\
-                          <h2><textarea cols="24" disabled="true">' + description + '</textarea></h2>\
+                          <h2><textarea id="desc" cols="24" disabled="true">' + description + '</textarea></h2>\
                       </div>\
                       \
                       <div class="clear">\
@@ -51,3 +51,20 @@ function displayNote(id, inHTML) {
     div.innerHTML = inHTML;
     document.getElementById('list').insertAdjacentElement('afterbegin', div);
 }
+
+function resetCursor(textarea) { 
+        textarea.focus(); 
+        textarea.setSelectionRange(0, 0); 
+}
+
+/*var textarea = document.getElementById('desc');
+
+textarea.addEventListener('keydown', autosize);
+             
+function autosize(){
+  var el = this;
+  setTimeout(function(){
+    el.style.cssText = 'height:auto; padding:0';
+    el.style.cssText = 'height:' + el.scrollHeight + 'px';
+  },0);
+}*/
