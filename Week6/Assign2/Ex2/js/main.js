@@ -113,14 +113,6 @@ function addNote() {
     }
 }
 
-function displayNote(id, inHTML) {
-    var div = document.createElement('div');
-    div.id = id;
-    div.className = 'do';
-    div.innerHTML = inHTML;
-    document.getElementById('list').insertAdjacentElement('afterbegin', div);
-}
-
 function resetCursor(txtElement) {
     txtElement.focus();
     txtElement.placeholder = "Please enter a " + txtElement.id;
