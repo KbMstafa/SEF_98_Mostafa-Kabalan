@@ -22,14 +22,14 @@ var Note = {
                              <h1>' + this.title + '</h1>\
                              <h4>added: ' + this.date + '</h4>\
                              <h2>\
-                                 <textarea id="desc" cols="24" disabled="true">'
+                                 <textarea id="desc" cols="24" rows="2" disabled="true">'
                                   + this.description + 
                                 '</textarea>\
                              </h2>\
                          </div>\
                          \
                          <div class="clear">\
-                             <input type="button" value="X" onclick="removeNote(this)">\
+                             <input id="remove" type="button" value="X" onclick="removeNote(this)">\
                          </div>';
         document.getElementById('list').insertAdjacentElement('afterbegin', div);
     },
@@ -45,11 +45,20 @@ var Note = {
 };
 
 var addButton = document.getElementById("add");
-addButton.addEventListener("click", addNote);
+addButton.addEventListener("click", function () {
+    addNote();
+});
 
 var body = document.getElementById("body");
-body.addEventListener("load", load());
+body.addEventListener("load", function () {
+   load();
+});
 
+/*var removeButton = document.getElementById("remove");
+removeButton.addEventListener("click", function() {
+    removeNote(this);
+});
+*/
 if (typeof Object.create != 'function') {
     Object.create = function(o) {
         var F = function() {};
@@ -117,4 +126,9 @@ function displayNote(id, inHTML) {
     div.className = 'do';
     div.innerHTML = inHTML;
     document.getElementById('list').insertAdjacentElement('afterbegin', div);
+}
+
+function resetCursor(txtElement) {
+    txtElement.focus();
+    txtElement.placeholder = "Please enter a " + txtElement.id;
 }
