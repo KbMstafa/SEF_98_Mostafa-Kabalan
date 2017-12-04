@@ -50,15 +50,8 @@ addButton.addEventListener("click", function () {
 });
 
 var body = document.getElementById("body");
-body.addEventListener("load", function () {
-   load();
-});
+body.addEventListener("load", load());
 
-/*var removeButton = document.getElementById("remove");
-removeButton.addEventListener("click", function() {
-    removeNote(this);
-});
-*/
 if (typeof Object.create != 'function') {
     Object.create = function(o) {
         var F = function() {};

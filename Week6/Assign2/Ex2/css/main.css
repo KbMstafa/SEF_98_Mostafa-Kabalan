@@ -149,10 +149,14 @@ h1 {
     margin-top: 0;
 }
 
+.note > h2 {
+    margin-bottom: 0; 
+}
+
 .note > h2 > textarea {
     max-width: 24ch;
     border: none;  
-    resize: none;  
+    resize: none; 
 }
 
 .note > h2 > textarea:disabled {
@@ -160,7 +164,7 @@ h1 {
 }
 
 h4 {
-    margin: 5px auto;
+    margin: 3px auto;
     color: gray;
 }
 
