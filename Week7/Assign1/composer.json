@@ -1,0 +1,8 @@
+{
+    "config": {
+        "vendor-dir": "src/vendor"
+    },
+    "require": {
+        "aylien/textapi": "0.6.*"
+    }
+}
