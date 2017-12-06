@@ -11,6 +11,6 @@
 
 if(isset($_GET["url"])) {
     $url = $_GET["url"];
-    echo get_contents($url));
+    echo get_contents($url);
 }
 ?>
