@@ -81,7 +81,7 @@ textarea {
     height: 40px;
     width: 360px;
     padding: 0 20px;
-    margin: 78px;
+    margin: 78px 20px 78px 50px;
     color: #240F0B;
     font-size: 20pt;
 }
@@ -89,16 +89,27 @@ textarea {
 #get {
     float: left;
     width: 150px;
-    height: 42px;
-    margin: 78px 0;
-    background: none;
+    height: 50px;
+    margin: 78px 20px;
+    background: transparent;
     color: #240F0B;
     border: 1px solid #240F0B;
     border-radius: 5px;
     font-size: 15pt;
 }
 
-
+#sentencesNumber {
+    float: left;
+    height: 50px;
+    width: 75px;
+    margin: 78px 0;
+    background: transparent;
+    color: #80B019;
+    font-size: 15pt;
+    text-align: center;
+    border: 1px solid #80B019;
+    border-radius: 5px;
+}
 
 
 /* ==========================================================================
