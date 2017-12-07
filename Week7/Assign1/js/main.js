@@ -8,22 +8,27 @@ var summarize = {
     },
     getContents: function () {
         theUrl = document.getElementById("url").value;
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
+        if (theUrl == "") {
+            document.getElementById("url").focus();
+            document.getElementById("url").placeholder = "Please enter a URL";
         } else {
-            // code for IE6, IE5`
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function()
-        {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                var htmlCode = xmlhttp.responseText;
-                summarize.extractContent(htmlCode);
+            if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // code for IE6, IE5`
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
+            xmlhttp.onreadystatechange = function()
+            {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var htmlCode = xmlhttp.responseText;
+                    summarize.extractContent(htmlCode);
+                }
+            }
+            xmlhttp.open("GET", "proxy.php?url=" + theUrl, true);
+            xmlhttp.send(); 
         }
-        xmlhttp.open("GET", "proxy.php?url=" + theUrl, true);
-        xmlhttp.send(); 
     },
     extractContent: function(content)
     {
@@ -64,7 +69,7 @@ var summarize = {
     display: function(title, text) {
         var section = document.getElementById("output");
 
-        section.innerHTML = "<h1>" + title + "</h1><p>" + text + "</p>"
+        section.innerHTML = "<h2>" + title + "</h2><p>" + text + "</p>"
     }
 }
 
