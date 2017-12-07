@@ -1,7 +1,7 @@
 var summarize = {
     HPregex: /(<h(2|3) (.*?)>(.*?)<\/h(2|3)>|<p (.*?)>(.*?)<\/p>|<li (.*?)>(.*?)<\/li>)/g,
     Hregex: /<h1 (.*?)>(.*?)<\/h1>/,
-    removeTagsRegex: /(<(.*?)>|<\/(.*?))>/g,
+    URLregex: /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/,
     init: function() {
         var getButton = document.getElementById("get");
         get.addEventListener("click", this.getContents);
@@ -11,6 +11,9 @@ var summarize = {
         if (theUrl == "") {
             document.getElementById("url").focus();
             document.getElementById("url").placeholder = "Please enter a URL";
+        } else if (!summarize.URLregex .test(theUrl)) {
+            document.getElementById("url").value = "";
+            document.getElementById("url").placeholder = "Please enter a valid URL";
         } else {
             if (window.XMLHttpRequest) {
                 // code for IE7+, Firefox, Chrome, Opera, Safari
