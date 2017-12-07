@@ -111,6 +111,19 @@ textarea {
     border-radius: 5px;
 }
 
+#output {
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 50px;
+    background: #6E9FFF;
+    border-radius: 10px;
+}
+
+#output > h1 {
+    margin: 0;
+}
+
 
 /* ==========================================================================
    Media Queries

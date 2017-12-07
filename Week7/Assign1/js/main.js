@@ -55,10 +55,16 @@ var summarize = {
 
         http.onreadystatechange = function() {//Call a function when the state changes.
             if(http.readyState == 4 && http.status == 200) {
-                console.log(http.responseText);
+                var summarizedText = http.responseText;
+                summarize.display(title, summarizedText);
             }
         }
         http.send(params)
+    },
+    display: function(title, text) {
+        var section = document.getElementById("output");
+
+        section.innerHTML = "<h1>" + title + "</h1><p>" + text + "</p>"
     }
 }
 
