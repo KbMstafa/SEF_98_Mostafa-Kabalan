@@ -72,7 +72,7 @@ var summarize = {
     display: function(title, text) {
         var section = document.getElementById("output");
 
-        section.innerHTML = "<h2>" + title + "</h2><p>" + text + "</p>"
+        section.innerHTML = "<h2>" + title + "</h2><ul>" + text + "</ul>"
     }
 }
 
