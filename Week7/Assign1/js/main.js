@@ -38,6 +38,27 @@ var summarize = {
         var title = content.match(this.Hregex)[2];
 
         summarize.summarization(cleanupParsing, title);
+    },
+    summarization: function (text, title) {
+        var http = new XMLHttpRequest();
+        var sentences_number = document.getElementById("sentencesNumber").value;
+        var url = "summarize.php";
+        var params = "text=" 
+                    + text + 
+                    "&title=" 
+                    + title + 
+                    "&sentences_number=" 
+                    + sentences_number;
+        http.open("POST", url, true);
+
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                console.log(http.responseText);
+            }
+        }
+        http.send(params)
     }
 }
 
