@@ -13,24 +13,24 @@ class ArticlesTableSeeder extends Seeder
     {
         DB::table('articles')->insert([
             [
-                'ArticleTitle' => 'article 1', 
-                'articleText' => 'this is the first article',
-                'articleAuthor_id' => 1
+                'article_title' => 'article 1', 
+                'article_text' => 'this is the first article',
+                'article_author_id' => 1
             ],
             [
-                'ArticleTitle' => 'article 2', 
-                'articleText' => 'this is the second article',
-                'articleAuthor_id' => 2
+                'article_title' => 'article 2', 
+                'article_text' => 'this is the second article',
+                'article_author_id' => 2
             ],
             [
-                'ArticleTitle' => 'article 3', 
-                'articleText' => 'this is the third article',
-                'articleAuthor_id' => 3
+                'article_title' => 'article 3', 
+                'article_text' => 'this is the third article',
+                'article_author_id' => 3
             ],
             [
-                'ArticleTitle' => 'article 4', 
-                'articleText' => 'this is the fourth article',
-                'articleAuthor_id' => 4
+                'article_title' => 'article 4', 
+                'article_text' => 'this is the fourth article',
+                'article_author_id' => 4
             ]
         ]);
     }

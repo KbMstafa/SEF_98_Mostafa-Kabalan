@@ -28,6 +28,6 @@ class User extends Authenticatable
     ];
 
     public function articles(){
-        return $this->hasMany('BlogMK\Article');
+        return $this->hasMany('BlogMK\Article', 'article_author_id');
     }
 }
