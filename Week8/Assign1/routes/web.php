@@ -12,14 +12,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/articles', "ArticleController@all");
+
+Route::get('/', function() {
+    return redirect("/articles");
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/articles', function() {
-    return view('articles');
-});
+Route::get("/article/{id}", "ArticleController@onId");
+
+Route::get('/home/{id}', "HomeController@userArticles")->name('homeId');
+
+Route::get('/create', 'ArticleController@createArticle');
+
+Route::post('/create', 'ArticleController@postArticle');
+
+/*Route::post('/create/{title}/{text}', 'ArticleController@postArticle')->name('cr');*/

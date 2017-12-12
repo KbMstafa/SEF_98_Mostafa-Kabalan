@@ -1,6 +1,6 @@
 <?php
 
-namespace BlogMK\Providers;
+namespace BoxBlog\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'BlogMK\Model' => 'BlogMK\Policies\ModelPolicy',
+        'BoxBlog\Model' => 'BoxBlog\Policies\ModelPolicy',
     ];
 
     /**

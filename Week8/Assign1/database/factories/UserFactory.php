@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(BlogMK\User::class, function (Faker $faker) {
+$factory->define(BoxBlog\User::class, function (Faker $faker) {
     static $password;
 
     return [

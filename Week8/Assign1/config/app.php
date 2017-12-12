@@ -171,11 +171,11 @@ return [
         /*
          * Application Service Providers...
          */
-        BlogMK\Providers\AppServiceProvider::class,
-        BlogMK\Providers\AuthServiceProvider::class,
-        // BlogMK\Providers\BroadcastServiceProvider::class,
-        BlogMK\Providers\EventServiceProvider::class,
-        BlogMK\Providers\RouteServiceProvider::class,
+        BoxBlog\Providers\AppServiceProvider::class,
+        BoxBlog\Providers\AuthServiceProvider::class,
+        // BoxBlog\Providers\BroadcastServiceProvider::class,
+        BoxBlog\Providers\EventServiceProvider::class,
+        BoxBlog\Providers\RouteServiceProvider::class,
 
     ],
 

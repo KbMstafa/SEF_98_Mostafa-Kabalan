@@ -1,6 +1,6 @@
 <?php
 
-namespace BlogMK\Exceptions;
+namespace BoxBlog\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

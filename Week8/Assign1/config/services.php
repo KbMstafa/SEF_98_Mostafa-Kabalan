@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => BlogMK\User::class,
+        'model' => BoxBlog\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

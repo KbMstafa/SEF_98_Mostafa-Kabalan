@@ -22,7 +22,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "BlogMK\\": "app/"
+            "BoxBlog\\": "app/"
         }
     },
     "autoload-dev": {

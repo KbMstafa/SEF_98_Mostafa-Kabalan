@@ -1,6 +1,6 @@
 <?php
 
-namespace BlogMK\Http\Middleware;
+namespace BoxBlog\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 

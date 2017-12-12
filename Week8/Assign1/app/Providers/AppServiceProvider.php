@@ -1,6 +1,6 @@
 <?php
 
-namespace BlogMK\Providers;
+namespace BoxBlog\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace BlogMK;
+namespace BoxBlog;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ Class Article extends Model {
     ];
 
     public function author() {
-        return $this->belongsTo('BlogMK\User', 'article_author_id');
+        return $this->belongsTo('BoxBlog\User', 'article_author_id');
     }
 }

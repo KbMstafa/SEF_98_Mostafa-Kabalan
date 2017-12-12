@@ -4,13 +4,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            @foreach ($articles as $article)
 
-                <div class="panel panel-default articles" id="{{ $article->id }}" >
+                <div class="panel panel-default" >
 
                     <div class="panel-body">
                         
                             <h1> {{ $article->article_title }} </h1>
+                            <textarea class="view" disabled="true" id="artiii"> {{ $article->article_text }} </textarea>
                         
                     </div>
 
@@ -21,9 +21,7 @@
                     </div>
 
                 </div>
-            @endforeach
 
-            {{ $articles->links() }}
         </div>
     </div>
 </div>

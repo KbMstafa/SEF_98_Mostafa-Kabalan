@@ -1,8 +1,9 @@
 <?php
 
-namespace BlogMK\Http\Controllers;
+namespace BoxBlog\Http\Controllers;
 
 use Illuminate\Http\Request;
+use BoxBlog\Article;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return redirect('articles');
+    }
+
+    public function userArticles($id) {
+        $data = array(
+            "articles" => Article::where('article_author_id', "=", $id)->orderBy('created_at', 'desc')->paginate(5)
+        );
+        return view("home", $data);
     }
 }
+

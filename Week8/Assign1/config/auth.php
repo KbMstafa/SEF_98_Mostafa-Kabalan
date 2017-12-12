@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => BlogMK\User::class,
+            'model' => BoxBlog\User::class,
         ],
 
         // 'users' => [

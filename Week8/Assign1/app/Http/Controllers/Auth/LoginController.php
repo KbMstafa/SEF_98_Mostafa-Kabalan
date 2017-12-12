@@ -1,8 +1,8 @@
 <?php
 
-namespace BlogMK\Http\Controllers\Auth;
+namespace BoxBlog\Http\Controllers\Auth;
 
-use BlogMK\Http\Controllers\Controller;
+use BoxBlog\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace BlogMK\Http\Middleware;
+namespace BoxBlog\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

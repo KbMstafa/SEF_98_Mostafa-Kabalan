@@ -1,9 +1,9 @@
 <?php
 
-namespace BlogMK\Http\Controllers\Auth;
+namespace BoxBlog\Http\Controllers\Auth;
 
-use BlogMK\User;
-use BlogMK\Http\Controllers\Controller;
+use BoxBlog\User;
+use BoxBlog\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -58,7 +58,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \BlogMK\User
+     * @return \BoxBlog\User
      */
     protected function create(array $data)
     {

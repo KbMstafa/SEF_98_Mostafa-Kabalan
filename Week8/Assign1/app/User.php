@@ -1,6 +1,6 @@
 <?php
 
-namespace BlogMK;
+namespace BoxBlog;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +28,6 @@ class User extends Authenticatable
     ];
 
     public function articles(){
-        return $this->hasMany('BlogMK\Article', 'article_author_id');
+        return $this->hasMany('BoxBlog\Article', 'article_author_id');
     }
 }
