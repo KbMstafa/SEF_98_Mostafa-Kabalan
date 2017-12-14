@@ -8,6 +8,7 @@ use BoxBlog\Article;
 class ArticleController extends Controller
 {
     function all() {
+
         $data = array(
             "articles" => Article::orderBy('created_at', 'desc')->paginate(5)
         );
