@@ -4,19 +4,29 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+            @foreach ($posts as $post)
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                <div class="panel panel-default">
 
-                    You are logged in!
+                    <div class="panel-body">
+                        
+                            <h1> {{ $post->caption }} </h1>
+                        
+                    </div>
+
+                    <div class="panel-heading">
+
+                        <img src="{{ asset('storage/'.$post->image_path) }}">
+
+                       <!--  <img src="{{ asset(Storage::url('$post->image_path')) }}" /> -->
+
+                        
+
+                    </div>
+
                 </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
 </div>

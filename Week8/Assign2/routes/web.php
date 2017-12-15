@@ -11,19 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+Route::get('/', 'InitController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::get('upload', 'UploadController@index')->name('upload');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('upload', 'UploadController@store');
 
-Auth::routes();
+Route::get('show', 'UploadController@show');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('file', 'FileController@showUploadForm')->name('upload.file');
 
+Route::post('file', 'FileController@storeFile');

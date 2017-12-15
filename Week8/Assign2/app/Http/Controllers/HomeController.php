@@ -3,6 +3,7 @@
 namespace Instagram\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Instagram\Post;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $id = \Auth::user()->id;
+        $posts = Post::where('user_id', "=", $id)->orderBy('created_at', 'desc')->get();
+        return view('home')->with('posts', $posts);
     }
 }
