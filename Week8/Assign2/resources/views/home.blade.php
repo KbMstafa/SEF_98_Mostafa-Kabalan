@@ -10,17 +10,16 @@
 
                     <div class="panel-body">
                         
-                            <h1> {{ $post->caption }} </h1>
-                        
-                    </div>
+                        <div class="row">
 
-                    <div class="panel-heading">
+                            <img class="col-md-8 col-md-offset-2" src="{{ asset('storage/'.$post->image_path) }}">
+                        </div>
 
-                        <img src="{{ asset('storage/'.$post->image_path) }}">
+                        <div class="row">
+                            <h1 class="col-md-6 col-md-offset-4"> {{ $post->caption }} </h1>
+                        </div>
 
                        <!--  <img src="{{ asset(Storage::url('$post->image_path')) }}" /> -->
-
-                        
 
                     </div>
 
