@@ -1,5 +1,5 @@
 <?php
-require_once '../config/Database.php';
+require_once 'config'.DIRECTORY_SEPARATOR.'Database.php';
 
 class Rental {
 
