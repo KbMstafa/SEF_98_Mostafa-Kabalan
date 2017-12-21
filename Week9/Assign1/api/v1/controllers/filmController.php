@@ -6,9 +6,21 @@ require_once 'objects'.DIRECTORY_SEPARATOR.'Film.php';
 
 class filmController extends initController {
 
-	public function insert() {
+	private $film;
 
-		$film = new Film();
-		$this->create($film);
+	public function __construct() {
+		$this->film = new Film();
+	}
+
+	public function insert() {
+		$this->create($this->film);
+	}
+
+	public function removeIfId($id) {
+		$this->deleteIfId($this->film, $id);
+	}
+
+	public function remove() {
+		$this->delete($this->film);
 	}
 }

@@ -6,6 +6,7 @@ class Actor {
     public $conn;
     public $tableName = "actor";
 
+    public $primaryKey = "actor_id";
     public $columns = [
     	"first_name",
     	"last_name"

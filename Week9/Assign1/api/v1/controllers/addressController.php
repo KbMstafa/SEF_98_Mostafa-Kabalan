@@ -6,9 +6,21 @@ require_once 'objects'.DIRECTORY_SEPARATOR.'Address.php';
 
 class addressController extends initController {
 
-	public function insert() {
+	private $address;
 
-		$address = new Address();
-		$this->create($address);
+	public function __construct() {
+		$this->address = new Address();
+	}
+
+	public function insert() {
+		$this->create($this->address);
+	}
+
+	public function removeIfId($id) {
+		$this->deleteIfId($this->address, $id);
+	}
+
+	public function remove() {
+		$this->delete($this->address);
 	}
 }

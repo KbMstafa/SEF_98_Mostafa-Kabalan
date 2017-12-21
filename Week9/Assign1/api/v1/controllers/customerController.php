@@ -6,9 +6,21 @@ require_once 'objects'.DIRECTORY_SEPARATOR.'Customer.php';
 
 class customerController extends initController {
 
-	public function insert() {
+	private $customer;
 
-		$customer = new Customer();
-		$this->create($customer);
+	public function __construct() {
+		$this->customer = new Customer();
+	}
+
+	public function insert() {
+		$this->create($this->customer);
+	}
+
+	public function removeIfId($id) {
+		$this->deleteIfId($this->customer, $id);
+	}
+
+	public function remove() {
+		$this->delete($this->customer);
 	}
 }

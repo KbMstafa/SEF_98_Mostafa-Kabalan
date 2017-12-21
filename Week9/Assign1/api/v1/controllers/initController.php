@@ -1,6 +1,6 @@
 <?php
-foreach (scandir(dirname(__DIR__).DIRECTORY_SEPARATOR.'objects') as $filename) {
-    $path = dirname(__DIR__).DIRECTORY_SEPARATOR.'objects'.DIRECTORY_SEPARATOR.$filename;
+foreach (scandir('objects') as $filename) {
+    $path = 'objects'.DIRECTORY_SEPARATOR.$filename;
     if (is_file($path)) {
         require_once $path;
     }
@@ -8,21 +8,21 @@ foreach (scandir(dirname(__DIR__).DIRECTORY_SEPARATOR.'objects') as $filename) {
 
 class initController {
 
-    public function create($modal) {
+    public function create($model) {
 
         $database = new Database;
         $db = $database->getConnection() ;
 
         foreach ($_POST as $column => $value) {
-            if(in_array($column, $modal->columns)) {
+            if(in_array($column, $model->columns)) {
                 $columnsValue[$column] = $value;
             }
         }
         
-        $modal->connect($db);
+        $model->connect($db);
     
         $query = "INSERT INTO "
-                  . $modal->tableName .
+                  . $model->tableName .
                 " SET";
 
         foreach ($columnsValue as $column => $value) {
@@ -36,9 +36,7 @@ class initController {
             }
         }
     
-        $stmt = $modal->conn->prepare($query);
-
-        var_dump($stmt);
+        $stmt = $model->conn->prepare($query);
      
         // bind values
         foreach ($columnsValue as $column => $value) {
@@ -53,7 +51,7 @@ class initController {
 
         if($stmt->execute()){
             $query = "SELECT * FROM "
-                      . $modal->tableName .
+                      . $model->tableName .
                 " WHERE";
 
             foreach ($columnsValue as $column => $value) {
@@ -66,7 +64,7 @@ class initController {
                     $query .= " AND";
                 }
             }
-            $stmt = $modal->conn->prepare($query);
+            $stmt = $model->conn->prepare($query);
 
             foreach ($columnsValue as $column => $value) {
                 if($column == "location") {
@@ -98,16 +96,69 @@ class initController {
                 }
             } else {
                 echo json_encode(
-                    array("errorInfo" => $stmt->errorInfo()[2]), 
+                    array("errorCode" => $stmt->errorInfo()[0], 
+                        "errorInfo" => $stmt->errorInfo()[2]), 
                     JSON_PRETTY_PRINT
                 );
             }
         }  else {
             echo json_encode(
                 array("message" => "No records added.", 
+                    "errorCode" => $stmt->errorInfo()[0], 
                     "errorInfo" => $stmt->errorInfo()[2]), 
                 JSON_PRETTY_PRINT
             );
         }
     }
+
+    public function deleteIfId($model, $id) {
+        
+        if(preg_match('/^[0-9]+$/', $id)) {
+
+            $database = new Database;
+            $db = $database->getConnection() ;
+
+            $model->connect($db);
+
+            $query = "DELETE FROM "
+                      . $model->tableName .
+                    " WHERE "
+                      . $model->primaryKey .
+                    " = :id";
+
+            $stmt = $model->conn->prepare($query);
+
+            $stmt->bindValue(":id", $id);
+
+            if($stmt->execute()){
+                echo "batata";
+            }  else {
+                echo json_encode(
+                    array("message" => "No ".$model->tableName." deleted.", 
+                        "errorCode" => $stmt->errorInfo()[0], 
+                        "errorInfo" => $stmt->errorInfo()[2]), 
+                    JSON_PRETTY_PRINT
+                );
+            }
+        } else {
+            echo json_encode(
+                array("message" => "$id must be an integer number (id)"), 
+                JSON_PRETTY_PRINT
+            );
+        }
+    }
+
+    /*public function delete($model) {
+
+        $database = new Database;
+        $db = $database->getConnection() ;
+
+        foreach ($_GET as $column => $value) {
+            if(in_array($column, $model->columns)) {
+                $columnsValue[$column] = $value;
+            }
+        }
+        
+        $model->connect($db);
+    }*/
 }

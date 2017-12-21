@@ -6,9 +6,13 @@ require_once 'objects'.DIRECTORY_SEPARATOR.'Actor.php';
 
 class actorController extends initController {
 
-	public function insert() {
+	private $actor;
 
-		$actor = new Actor();
-		$this->create($actor);
+	public function __construct() {
+		$this->actor = new Actor();
+	}
+
+	public function insert() {
+		$this->create($this->actor);
 	}
 }

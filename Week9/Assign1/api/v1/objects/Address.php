@@ -6,6 +6,7 @@ class Address {
     public $conn;
     public $tableName = "address";
 
+    public $primaryKey = "address_id";
     public $columns = [
         "address",
         "address2",          //NULL

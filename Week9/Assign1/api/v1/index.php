@@ -1,13 +1,11 @@
 <?php
 foreach (scandir('controllers') as $filename) {
-	/*if($filename != "initController.php") {*/
+	if($filename != "initController.php") {
 	    $path = 'controllers'.DIRECTORY_SEPARATOR.$filename;
 	    if (is_file($path)) {
-	        echo $path;
-            echo "\n";
             require_once $path;
 	    }
-	/*}*/
+	}
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -76,6 +74,12 @@ switch ($method) {
 	case 'DELETE':
     {
     	echo "DELETE";
+        if(count($pathInfo) == 0) {
+            $controller->remove();
+        } elseif (count($pathInfo) == 1) {
+            $id = array_shift($pathInfo);
+            $controller->removeIfId($id);
+        }
     	break;
     }
 }

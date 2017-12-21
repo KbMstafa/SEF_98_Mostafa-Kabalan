@@ -6,6 +6,7 @@ class Customer {
     public $conn;
     public $tableName = "customer";
 
+    public $primaryKey = "customer_id";
     public $columns = [
         "store_id",
         "first_name",

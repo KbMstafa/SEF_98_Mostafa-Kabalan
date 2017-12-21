@@ -6,6 +6,7 @@ class Film {
     public $conn;
     public $tableName = "film";
 
+    public $primaryKey = "film_id";
     public $columns = [
         "title",
         "description",                  //NULL
