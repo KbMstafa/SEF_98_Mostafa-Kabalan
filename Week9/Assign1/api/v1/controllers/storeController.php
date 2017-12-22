@@ -14,4 +14,8 @@ class storeController extends initController {
 	public function partialUpdate($id) {
 		$this->patch($this->store, $id);
 	}
+
+	public function update($id) {
+		$this->put($this->store, $id);
+	}
 }

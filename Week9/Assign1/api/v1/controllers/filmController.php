@@ -27,4 +27,8 @@ class filmController extends initController {
 	public function partialUpdate($id) {
 		$this->patch($this->film, $id);
 	}
+
+	public function update($id) {
+		$this->put($this->film, $id);
+	}
 }

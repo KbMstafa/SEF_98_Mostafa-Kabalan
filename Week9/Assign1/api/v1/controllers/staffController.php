@@ -14,4 +14,8 @@ class staffController extends initController {
 	public function partialUpdate($id) {
 		$this->patch($this->staff, $id);
 	}
+
+	public function update($id) {
+		$this->put($this->staff, $id);
+	}
 }

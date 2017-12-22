@@ -11,8 +11,7 @@ class Payment {
         "customer_id",
     	"staff_id",
     	"rental_id",      //NULL
-    	"amount",
-    	"payment_date"
+    	"amount"
     ];
 
     public function connect($db){

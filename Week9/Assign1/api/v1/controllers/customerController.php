@@ -27,4 +27,8 @@ class customerController extends initController {
 	public function partialUpdate($id) {
 		$this->patch($this->customer, $id);
 	}
+
+	public function update($id) {
+		$this->put($this->customer, $id);
+	}
 }

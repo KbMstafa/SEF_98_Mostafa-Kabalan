@@ -14,4 +14,8 @@ class paymentController extends initController {
 	public function partialUpdate($id) {
 		$this->patch($this->payment, $id);
 	}
+
+	public function update($id) {
+		$this->put($this->payment, $id);
+	}
 }

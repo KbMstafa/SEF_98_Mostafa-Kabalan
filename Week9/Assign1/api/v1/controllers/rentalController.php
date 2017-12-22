@@ -12,6 +12,10 @@ class rentalController extends initController {
 	}
 
 	public function partialUpdate($id) {
-	$this->patch($this->rental, $id);
+		$this->patch($this->rental, $id);
+	}
+
+	public function update($id) {
+		$this->put($this->rental, $id);
 	}
 }

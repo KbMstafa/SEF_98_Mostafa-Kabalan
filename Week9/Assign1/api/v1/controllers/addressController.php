@@ -27,4 +27,8 @@ class addressController extends initController {
 	public function partialUpdate($id) {
 		$this->patch($this->address, $id);
 	}
+
+	public function update($id) {
+		$this->put($this->address, $id);
+	}
 }

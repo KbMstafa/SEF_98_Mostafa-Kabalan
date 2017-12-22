@@ -19,4 +19,8 @@ class actorController extends initController {
 	public function partialUpdate($id) {
 		$this->patch($this->actor, $id);
 	}
+
+	public function update($id) {
+		$this->put($this->actor, $id);
+	}
 }
