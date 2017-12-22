@@ -3,15 +3,19 @@ require_once 'config'.DIRECTORY_SEPARATOR.'Database.php';
 
 class Payment {
 
-    private $conn;
-    private $table_name = "payment";
+    public $conn;
+    public $tableName = "payment";
 
-    public $customer_id;
-    public $staff_id;
-    public $rental_id = NULL;
-    public $amoun;
+    public $primaryKey = "payment_id";
+    public $columns = [
+        "customer_id",
+    	"staff_id",
+    	"rental_id",      //NULL
+    	"amount",
+    	"payment_date"
+    ];
 
-    public function __construct($db){
+    public function connect($db){
         $this->conn = $db;
     }
 }

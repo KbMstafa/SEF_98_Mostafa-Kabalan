@@ -13,7 +13,8 @@ class Customer {
         "last_name",
         "email",            //NULL
         "address_id",
-        "active"
+        "active",
+        "create_date"
     ];
 
     public function connect($db){

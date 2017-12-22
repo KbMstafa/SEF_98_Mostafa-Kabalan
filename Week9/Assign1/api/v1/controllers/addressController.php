@@ -23,4 +23,8 @@ class addressController extends initController {
 	public function remove() {
 		$this->delete($this->address);
 	}
+
+	public function partialUpdate($id) {
+		$this->patch($this->address, $id);
+	}
 }

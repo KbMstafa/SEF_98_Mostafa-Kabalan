@@ -68,12 +68,14 @@ switch ($method) {
     }
     case 'PATCH':
     {
-    	echo "PATCH";
+        if (count($pathInfo) == 1) {
+            $id = array_shift($pathInfo);
+            $controller->partialUpdate($id);
+        }
     	break;
     }
 	case 'DELETE':
     {
-    	echo "DELETE";
         if(count($pathInfo) == 0) {
             $controller->remove();
         } elseif (count($pathInfo) == 1) {

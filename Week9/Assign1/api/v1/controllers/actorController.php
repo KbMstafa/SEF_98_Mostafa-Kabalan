@@ -15,4 +15,8 @@ class actorController extends initController {
 	public function insert() {
 		$this->create($this->actor);
 	}
+
+	public function partialUpdate($id) {
+		$this->patch($this->actor, $id);
+	}
 }

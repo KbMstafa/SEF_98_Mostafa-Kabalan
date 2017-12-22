@@ -3,20 +3,23 @@ require_once 'config'.DIRECTORY_SEPARATOR.'Database.php';
 
 class Staff {
 
-    private $conn;
-    private $table_name = "staff";
+    public $conn;
+    public $tableName = "staff";
 
-    public $first_name;
-    public $last_name;
-    public $address_id;
-    public $picture = NULL;
-    public $email = NULL;
-    public $store_id;
-    public $active;
-    public $username;
-    public $password = NULL;
+    public $primaryKey = "staff_id";
+    public $columns = [
+        "first_name",
+        "last_name",
+        "address_id",
+        "picture",            //NULL
+        "email",              //NULL
+        "store_id",
+        "active",
+        "username",
+        "password"            //NULL
+    ];
 
-    public function __construct($db){
+    public function connect($db){
         $this->conn = $db;
     }
 }

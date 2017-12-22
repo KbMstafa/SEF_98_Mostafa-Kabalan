@@ -3,13 +3,16 @@ require_once 'config'.DIRECTORY_SEPARATOR.'Database.php';
 
 class Store {
 
-    private $conn;
-    private $table_name = "store";
+    public $conn;
+    public $tableName = "store";
 
-    public $manager_staff_id;
-    public $address_id;
+    public $primaryKey = "store_id";
+    public $columns = [
+    	"manager_staff_id",
+    	"address_id"
+	];
 
-    public function __construct($db){
+    public function connect($db){
         $this->conn = $db;
     }
 }

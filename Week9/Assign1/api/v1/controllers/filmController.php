@@ -23,4 +23,8 @@ class filmController extends initController {
 	public function remove() {
 		$this->delete($this->film);
 	}
+
+	public function partialUpdate($id) {
+		$this->patch($this->film, $id);
+	}
 }

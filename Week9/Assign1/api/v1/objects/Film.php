@@ -26,7 +26,7 @@ class Film {
         $this->conn = $db;
     }
 
-    function all(){
+    /*function all(){
     
         $query = "SELECT
                       *
@@ -40,5 +40,5 @@ class Film {
         $stmt->execute();
 
         return $stmt;
-    }
+    }*/
 }

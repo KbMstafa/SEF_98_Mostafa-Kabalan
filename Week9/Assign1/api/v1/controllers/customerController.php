@@ -23,4 +23,8 @@ class customerController extends initController {
 	public function remove() {
 		$this->delete($this->customer);
 	}
+
+	public function partialUpdate($id) {
+		$this->patch($this->customer, $id);
+	}
 }
