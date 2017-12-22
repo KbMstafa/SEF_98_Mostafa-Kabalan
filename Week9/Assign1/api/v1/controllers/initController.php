@@ -64,6 +64,7 @@ class initController {
                     $query .= " AND";
                 }
             }
+
             $stmt = $model->conn->prepare($query);
 
             foreach ($columnsValue as $column => $value) {
@@ -130,8 +131,11 @@ class initController {
 
             $stmt->bindValue(":id", $id);
 
-            if($stmt->execute()){
-                echo "batata";
+            if($stmt->execute()) {
+                echo json_encode(
+                    array("message" => $model->tableName." deleted"), 
+                    JSON_PRETTY_PRINT
+                );
             }  else {
                 echo json_encode(
                     array("message" => "No ".$model->tableName." deleted.", 
@@ -148,17 +152,63 @@ class initController {
         }
     }
 
-    /*public function delete($model) {
+    public function delete($model) {
 
         $database = new Database;
         $db = $database->getConnection() ;
 
         foreach ($_GET as $column => $value) {
-            if(in_array($column, $model->columns)) {
+            if(in_array($column, $model->columns)
+                || $column == $model->primaryKey) {
                 $columnsValue[$column] = $value;
             }
         }
+
+        var_dump($columnsValue);
         
         $model->connect($db);
-    }*/
+
+        $query = "DELETE FROM "
+                      . $model->tableName .
+                    " WHERE";
+
+        foreach ($columnsValue as $column => $value) {
+            if($column == "location") {
+                $query .= " $column = POINT(:x, :y)";
+            } else {
+                $query .= " $column = :$column";
+            }
+            if($value != end($columnsValue)) {
+                $query .= " AND";
+            }
+        }
+
+        $stmt = $model->conn->prepare($query);
+        var_dump($stmt);
+
+        // bind values
+        foreach ($columnsValue as $column => $value) {
+            if($column == "location") {
+                $location = explode(', ', $value);
+                $stmt->bindValue(":x", $location[0]);
+                $stmt->bindValue(":y", $location[1]);
+            } else {
+                $stmt->bindValue(":$column", $value);
+            }
+        }
+
+        if($stmt->execute()) {
+            echo json_encode(
+                array("message" => $model->tableName." deleted"), 
+                JSON_PRETTY_PRINT
+            );
+        }  else {
+            echo json_encode(
+                array("message" => "No ".$model->tableName." deleted.", 
+                    "errorCode" => $stmt->errorInfo()[0], 
+                    "errorInfo" => $stmt->errorInfo()[2]), 
+                JSON_PRETTY_PRINT
+            );
+        }
+    }
 }
