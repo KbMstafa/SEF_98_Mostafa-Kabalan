@@ -1,12 +1,17 @@
+#login {
+    background: white;
+    height: 100vh;
+}
+
 #icon {
-    width: 45%;
-    margin: 1.5em auto 4em auto;
+    padding: 4em 0;
     display: block;
+    fill: #0288d1;
 }
 
 #fb {
-    background: #3B5998 url('assets/images/facebook.svg') no-repeat 14px 6px;
-    background-size: 47px;
+    background: #3B5998 url('assets/images/facebook.svg') no-repeat 14px -1px;
+    background-size: 40px;
     color: #fff;
 }
 

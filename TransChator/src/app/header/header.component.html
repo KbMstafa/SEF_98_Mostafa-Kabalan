@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="nav-item">
+        <h3><i class="material-icons">chat_bubble_outline</i> TransChator</h3>
+    </div>
+    <div id="user-container" class="nav-item" ngbDropdown>
+        <div hidden id="user-pic"></div>
+        <div hidden id="user-name" class="dropdown" ngbDropdownToggle></div>
+        <div class="dropdown-menu" ngbDropdownMenu>
+            <button hidden id="sign-out" (click)="logout()">
+                Sign out
+            </button>
+        </div>
+    </div>
+</nav>
