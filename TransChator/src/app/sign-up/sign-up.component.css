@@ -1,0 +1,14 @@
+#signup {
+    background: white;
+}
+
+#icon {
+    padding: 1em 0;
+    display: block;
+    fill: #0288d1;
+}
+
+input,
+select {
+    margin-bottom: 15px;
+}

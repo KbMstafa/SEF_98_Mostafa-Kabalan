@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "~bootstrap/dist/css/bootstrap.css";
-
 body {
     background: #E2E4E6;
 }
@@ -13,26 +11,13 @@ button {
     font-size: 1em;
 }
 
-input {
-    width: 100%;
-    cursor: pointer;
-}
-
 .basic-btn {
     background: #3B8598;
     color: white;
 }
 
-input.txt {
-    background: #fff !important;
-    padding: 0.5em 1em;
-    font-size: 1em;
-    color: black;
-    border: 1px solid #BBBBBB;
-}
-
 h2 {
-    margin: 1.7em 0 .9em 0;
+    margin: 0 0 .9em 0;
 }
 
 .alc {
@@ -91,12 +76,6 @@ h2 {
 
 @media (max-width: 600px) {
     
-    .form-container {
-        padding: 1.2em;
-        width: 90%;
-        margin-left: -45%;
-        top: 17%;
-    }
     button {
         font-size: 1em;
     }

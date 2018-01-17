@@ -8,16 +8,26 @@ export class MessagingComponent {
     public messageInput;
     public submitButton;
     public messagesRef;
+    private user;
+    private secondParty;
 
     constructor() {
     }
 
-    setFormValues() {
+    setFormValues(user, secondParty) {
         this.messageForm = document.getElementById('message-form');
         this.messageList = document.getElementById('messages');
         this.messageInput = document.getElementById('message');
         this.submitButton = document.getElementById('submit');
-        this.messagesRef = firebase.database().ref('messages');
+        this.user = user.info;
+        this.secondParty = secondParty.info;
+        this.messageList.innerHTML = '';
+        if(user.id < secondParty.id) {
+            var conversation = user.id + '/' + secondParty.id
+        } else if(user.id > secondParty.id) {
+            var conversation = secondParty.id + '/' + user.id
+        }
+        this.messagesRef = firebase.database().ref('messages/' + conversation);
     }
 
     toggleButton() {
@@ -29,15 +39,30 @@ export class MessagingComponent {
     }
 
 
-    saveMessage(auth) {
+    saveMessage(httpClient) {
         if (this.messageInput.value) {
-            var currentUser = auth;
-            this.messagesRef.push({
-                name: currentUser.displayName,
-                text: this.messageInput.value,
-                photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
-            }).then(this.resetForm());
+            var unchanged = this.messageInput.value.match(/<([\w*\s*]+)>/g);
+            this.messageInput.value = this.messageInput.value.replace(/(<[\w*\s*]+>)/g, "...");
+            /*this.translate(httpClient).then(() => {
+                if(unchanged) {
+                    for (let value of unchanged) {
+                        value = value.replace('<', "`");
+                        value = value.replace('>', "`");
+                        this.messageInput.value = this.messageInput.value.replace("...", value);                      
+                    }
+                }
+                this.storeMessage();
+            });*/
+            this.storeMessage();
         }
+    }
+
+    storeMessage() {
+        this.messagesRef.push({
+            name: this.user.name,
+            text: this.messageInput.value,
+            photoUrl: this.user.Photo_URL || '/images/profile_placeholder.png'
+        }).then(this.resetForm());
     }
 
     resetForm() {
@@ -62,7 +87,6 @@ export class MessagingComponent {
         if (!div) {
             var container = document.createElement('div');
             container.innerHTML = '<div class="message-container">'
-                                + '<div class="spacing"><div class="pic"></div></div>'
                                 + '<div class="message"></div>'
                                 + '<div class="name"></div>'
                                 + '</div>';
@@ -82,5 +106,22 @@ export class MessagingComponent {
         }, 1);
         this.messageList.scrollTop = this.messageList.scrollHeight;
         this.messageInput.focus();
+    }
+    
+    translate(httpClient) {
+        let promise = new Promise((resolve) => {
+            httpClient.post('https://translation.googleapis.com/language/translate/v2?key=AIzaSyCwrEvnylWmBa-mj2TbCNwnZpEav5IbVis',
+            {
+                'q':this.messageInput.value,
+                'target': this.user.language
+            })
+            .subscribe(
+                (res:any) => {
+                    this.messageInput.value = res.data.translations[0].translatedText;
+                    resolve();
+                }
+            );
+        });
+        return promise;
     }
 }

@@ -32,50 +32,21 @@ export class LoginComponent implements OnInit {
 
     }
 
-    loginFb() {
-        var provider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithPopup(
-            provider
-        ).then(function(result) {
-            var user = result.user;
-            addToDatabase(user);
-            this.router.navigate(['/chat']);
-        }).catch((err) => {
-            this.error = err;
-        });
+    onSubmit(formData) {
+        if (formData.valid) {
+            var email = formData.value.email;
+            var password = formData.value.password;
+            firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(function () {
+                this.router.navigate(['/chat']);
+            })
+            .catch((err) => {
+                this.error = err;
+            });
+        }
     }
-
-    loginGoogle() {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(
-            provider
-        ).then(function(result) {
-            var user = result.user;
-            addToDatabase(user);
-            this.router.navigate(['/chat']);
-        }).catch((err) => {
-            this.error = err;
-        });
-    }
-
-    
-        
-        
-        
-        
 
     ngOnInit() {
     }
 
-}
-
-function addToDatabase(user) {
-    firebase.database().ref('users/' + user.uid).set({
-        Name: user.displayName,
-        Photo_URL: user.photoURL,
-        email: user.email,
-        Phone_Number: user.phoneNumber
-    }).catch(function(error) {
-        console.log('Error :', error);
-    });
 }

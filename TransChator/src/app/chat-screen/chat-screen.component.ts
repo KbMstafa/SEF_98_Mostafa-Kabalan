@@ -4,6 +4,7 @@ import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { moveIn, fallIn, moveInLeft } from '../router.animations';
 import { MessagingComponent } from '../classes/messaging.component';
+import { HttpClient } from '@angular/common/http';
 
 import * as firebase from 'firebase/app';
 
@@ -17,85 +18,76 @@ import * as firebase from 'firebase/app';
 export class ChatScreenComponent implements OnInit {
 
     error: any;
-    name: any;
+    user: any;
     state: string = '';
+    secondParty: any;
 
-    constructor(public af: AngularFireAuth, private router: Router, public messaging: MessagingComponent) {
-
-        this.af.authState.subscribe(auth => {
+    constructor(
+        public af: AngularFireAuth, 
+        private router: Router, 
+        public messaging: MessagingComponent,
+        private httpClient:HttpClient
+        ) {
+        var that = this;
+        that.af.authState.subscribe(auth => {
             if (auth) {
-                this.name = auth;
 
-                var signOutButton = document.getElementById('sign-out');
-                var userPic = document.getElementById('user-pic');
-                var userName = document.getElementById('user-name');
+                firebase.database().ref('users/' + auth.uid).on('value', (snapshot) => {
+                    that.user = {
+                        id: auth.uid,
+                        info: snapshot.val()
+                    };
 
-                var profilePicUrl = auth.photoURL;
-                var usrName = auth.displayName;
+                    var signOutButton = document.getElementById('sign-out');
+                    var userPic = document.getElementById('user-pic');
+                    var userName = document.getElementById('user-name');
 
-                
-                userPic.style.backgroundImage = 'url(' + (profilePicUrl || '/images/profile_placeholder.png') + ')';
-                userName.textContent = usrName;
+                    var profilePicUrl = that.user.info.photoURL;
+                    var usrName = that.user.info.name;
+                    var httpClient = that.httpClient;
+                    
+                    userPic.style.background = 'url(assets/images/profile_placeholder.png)';
+                    userPic.style.backgroundSize = 'contain';
+                    userName.textContent = usrName;
 
-                
-                userName.removeAttribute('hidden');
-                userPic.removeAttribute('hidden');
-                signOutButton.removeAttribute('hidden'); 
+                    userName.removeAttribute('hidden');
+                    userPic.removeAttribute('hidden');
+                    signOutButton.removeAttribute('hidden'); 
 
-                this.messaging.setFormValues();
 
-                this.messaging.loadMessages();
+                    var emailSearch = document.getElementById('email-search');
+                    var search = <HTMLInputElement>document.getElementById('search');
+                    emailSearch.addEventListener('submit', function() {
+                        firebase.database().ref('users/')
+                        .orderByChild("email")
+                        .equalTo(search.value)
+                        .on("value", (snapshot) => {
+                            for(var userUid in snapshot.val()) {
+                                that.secondParty = {
+                                    id: userUid,
+                                    info: snapshot.val()[userUid]
+                                };
+                            }
 
-                this.messaging.messageForm.addEventListener('submit', function() {
-                    messaging.saveMessage(auth)
+                            that.messaging.setFormValues(that.user, that.secondParty);
+                            that.messaging.loadMessages();
+                            that.messaging.messageForm.addEventListener('submit', function() {
+                                messaging.saveMessage(httpClient);
+                            });
+                            that.messaging.messageInput.addEventListener('keyup', function() {
+                                messaging.toggleButton()
+                            });
+                            that.messaging.messageInput.addEventListener('change', function() {
+                                messaging.toggleButton()
+                            });
+
+                        });
+                    });
                 });
-                this.messaging.messageInput.addEventListener('keyup', function() {
-                    messaging.toggleButton()
-                });
-                this.messaging.messageInput.addEventListener('change', function() {
-                    messaging.toggleButton()
-                });
-
-                /*tr();*/
-
-
             }
         });
     }
 
     ngOnInit() {
     }
-
 }
-
-
-/*function tr() {
-
-// Your Google Cloud Platform project ID
-const projectId = 'YOUR_PROJECT_ID';
-
-// Instantiates a client
-const translate = new Translate({
-  projectId: projectId,
-});
-
-// The text to translate
-const text = 'Hello, world!';
-// The target language
-const target = 'ru';
-
-// Translates some text into Russian
-translate
-  .translate(text, target)
-  .then(results => {
-    const translation = results[0];
-
-    console.log(`Text: ${text}`);
-    console.log(`Translation: ${translation}`);
-  })
-  .catch(err => {
-    console.error('ERROR:', err);
-  });
-  console.log(firebase);
-  console.log(translate);
-}*/

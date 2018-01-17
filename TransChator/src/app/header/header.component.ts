@@ -17,14 +17,7 @@ export class HeaderComponent implements OnInit {
     error: any;
     state: string = '';
 
-    constructor(public af: AngularFireAuth, private router: Router) {
-
-        this.af.authState.subscribe(auth => {
-            if (auth) {
-
-                    
-            }
-        });
+    constructor(private router: Router, ) {
     }
 
     logout() {

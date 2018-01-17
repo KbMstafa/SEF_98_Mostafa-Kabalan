@@ -5,6 +5,10 @@
     padding: 15px 15px;
 }
 
+#email-search {
+    padding: 0;
+}
+
 #chat {
     background: white;
 }
