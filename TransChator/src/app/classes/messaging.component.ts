@@ -10,27 +10,52 @@ export class MessagingComponent {
     public messagesRef;
     private user;
     private secondParty;
+    private httpClient;
 
     constructor() {
     }
 
-    setFormValues(user, secondParty) {
+    setFormValues(user, httpClient) {
+        this.httpClient = httpClient;
         this.messageForm = document.getElementById('message-form');
         this.messageList = document.getElementById('messages');
         this.messageInput = document.getElementById('message');
         this.submitButton = document.getElementById('submit');
-        this.user = user.info;
-        this.secondParty = secondParty.info;
+        this.user = user;
+        console.log(this.messageInput);
+    }
+
+    setSecondParty(secondParty) {
+        this.secondParty = secondParty;
         this.messageList.innerHTML = '';
-        if(user.id < secondParty.id) {
-            var conversation = user.id + '/' + secondParty.id
-        } else if(user.id > secondParty.id) {
-            var conversation = secondParty.id + '/' + user.id
+        if (this.user.id < this.secondParty.id) {
+            var conversation = this.user.id + '/' + this.secondParty.id
+        } else if (this.user.id > this.secondParty.id) {
+            var conversation = this.secondParty.id + '/' + this.user.id
         }
         this.messagesRef = firebase.database().ref('messages/' + conversation);
     }
 
+    translate() {
+        let promise = new Promise((resolve) => {
+            this.httpClient.post('https://translation.googleapis.com/language/translate/v2?key=AIzaSyCwrEvnylWmBa-mj2TbCNwnZpEav5IbVis',
+                {
+                    'q': this.messageInput.value,
+                    'target': this.secondParty.language
+                })
+                .subscribe(
+                (res: any) => {
+                    
+                    this.messageInput.value = res.data.translations[0].translatedText;
+                    console.log(this.messageInput.value);
+                    resolve();
+                });
+        });
+        return promise;
+    }
+
     toggleButton() {
+        console.log(this.messageInput);        
         if (this.messageInput.value) {
             this.submitButton.removeAttribute('disabled');
         } else {
@@ -39,29 +64,30 @@ export class MessagingComponent {
     }
 
 
-    saveMessage(httpClient) {
+    saveMessage() {
         if (this.messageInput.value) {
             var unchanged = this.messageInput.value.match(/<([\w*\s*]+)>/g);
             this.messageInput.value = this.messageInput.value.replace(/(<[\w*\s*]+>)/g, "...");
-            /*this.translate(httpClient).then(() => {
+            this.translate().then(() => {
                 if(unchanged) {
                     for (let value of unchanged) {
+                        console.log('batata');
                         value = value.replace('<', "`");
                         value = value.replace('>', "`");
                         this.messageInput.value = this.messageInput.value.replace("...", value);                      
                     }
                 }
                 this.storeMessage();
-            });*/
-            this.storeMessage();
+            });
+            // this.storeMessage();
         }
     }
 
     storeMessage() {
         this.messagesRef.push({
-            name: this.user.name,
+            name: this.user.info.name,
             text: this.messageInput.value,
-            photoUrl: this.user.Photo_URL || '/images/profile_placeholder.png'
+            photoUrl: this.user.info.Photo_URL || '/images/profile_placeholder.png'
         }).then(this.resetForm());
     }
 
@@ -106,22 +132,5 @@ export class MessagingComponent {
         }, 1);
         this.messageList.scrollTop = this.messageList.scrollHeight;
         this.messageInput.focus();
-    }
-    
-    translate(httpClient) {
-        let promise = new Promise((resolve) => {
-            httpClient.post('https://translation.googleapis.com/language/translate/v2?key=AIzaSyCwrEvnylWmBa-mj2TbCNwnZpEav5IbVis',
-            {
-                'q':this.messageInput.value,
-                'target': this.user.language
-            })
-            .subscribe(
-                (res:any) => {
-                    this.messageInput.value = res.data.translations[0].translatedText;
-                    resolve();
-                }
-            );
-        });
-        return promise;
     }
 }

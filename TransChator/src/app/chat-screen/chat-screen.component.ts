@@ -45,19 +45,24 @@ export class ChatScreenComponent implements OnInit {
                     var profilePicUrl = that.user.info.photoURL;
                     var usrName = that.user.info.name;
                     var httpClient = that.httpClient;
-                    
+
                     userPic.style.background = 'url(assets/images/profile_placeholder.png)';
                     userPic.style.backgroundSize = 'contain';
                     userName.textContent = usrName;
 
                     userName.removeAttribute('hidden');
                     userPic.removeAttribute('hidden');
-                    signOutButton.removeAttribute('hidden'); 
-
+                    signOutButton.removeAttribute('hidden');
 
                     var emailSearch = document.getElementById('email-search');
                     var search = <HTMLInputElement>document.getElementById('search');
                     emailSearch.addEventListener('submit', function() {
+                        /* if (that.messaging.messageForm) {
+                            that.messaging.messageForm.removeEventListener('submit', function () {
+                                console.log(1);
+                                messaging.saveMessage(httpClient);
+                            });
+                        } */
                         firebase.database().ref('users/')
                         .orderByChild("email")
                         .equalTo(search.value)
@@ -69,18 +74,19 @@ export class ChatScreenComponent implements OnInit {
                                 };
                             }
 
-                            that.messaging.setFormValues(that.user, that.secondParty);
+                            that.messaging.setFormValues(that.user, httpClient);
+                            that.messaging.setSecondParty(that.secondParty);
+
+                            console.log(that.messaging.messageForm);
+                            
                             that.messaging.loadMessages();
-                            that.messaging.messageForm.addEventListener('submit', function() {
-                                messaging.saveMessage(httpClient);
-                            });
+                            that.messaging.messageForm.addEventListener('submit', that.messaging.saveMessage);
                             that.messaging.messageInput.addEventListener('keyup', function() {
                                 messaging.toggleButton()
                             });
                             that.messaging.messageInput.addEventListener('change', function() {
                                 messaging.toggleButton()
                             });
-
                         });
                     });
                 });
