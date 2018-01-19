@@ -56,39 +56,48 @@ export class ChatScreenComponent implements OnInit {
 
                     var emailSearch = document.getElementById('email-search');
                     var search = <HTMLInputElement>document.getElementById('search');
+
+                    that.messaging.setFormValues(that.user, httpClient);                    
+                    
                     emailSearch.addEventListener('submit', function() {
-                        /* if (that.messaging.messageForm) {
-                            that.messaging.messageForm.removeEventListener('submit', function () {
-                                console.log(1);
-                                messaging.saveMessage(httpClient);
-                            });
-                        } */
                         firebase.database().ref('users/')
                         .orderByChild("email")
                         .equalTo(search.value)
                         .on("value", (snapshot) => {
-                            for(var userUid in snapshot.val()) {
-                                that.secondParty = {
-                                    id: userUid,
-                                    info: snapshot.val()[userUid]
-                                };
-                            }
-
-                            that.messaging.setFormValues(that.user, httpClient);
-                            that.messaging.setSecondParty(that.secondParty);
-
-                            console.log(that.messaging.messageForm);
+                            if(!snapshot.val()) {
+                                that.messaging.messageList.innerHTML = '<h4> The username you have provided isn\'t currently registered in our system. </h4>';
+                                that.messaging.messageInput.value = '';
+                                that.messaging.messageInput.setAttribute('disabled', 'true');
+                            } else {
+                                for(var userUid in snapshot.val()) {
+                                    that.secondParty = {
+                                        id: userUid,
+                                        info: snapshot.val()[userUid]
+                                    };
+                                }
+                                that.messaging.setSecondParty(that.secondParty);
                             
-                            that.messaging.loadMessages();
-                            that.messaging.messageForm.addEventListener('submit', that.messaging.saveMessage);
-                            that.messaging.messageInput.addEventListener('keyup', function() {
-                                messaging.toggleButton()
-                            });
-                            that.messaging.messageInput.addEventListener('change', function() {
-                                messaging.toggleButton()
-                            });
+                                that.messaging.loadMessages();
+                                
+                                that.messaging.messageInput.addEventListener('keyup', function () {
+                                    messaging.toggleButton()
+                                });
+                                that.messaging.messageInput.addEventListener('change', function () {
+                                    messaging.toggleButton()
+                                });
+                            }
                         });
                     });
+
+                    /* that.messaging.messageForm.addEventListener('submit', function () {
+                        messaging.saveMessage()
+                    });
+                    that.messaging.messageInput.addEventListener('keyup', function () {
+                        messaging.toggleButton()
+                    });
+                    that.messaging.messageInput.addEventListener('change', function () {
+                        messaging.toggleButton()
+                    }); */
                 });
             }
         });
