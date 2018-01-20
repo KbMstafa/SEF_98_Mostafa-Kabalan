@@ -16,12 +16,12 @@
 
         <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
 
-            <input type="text" class="col-12" autocomplete="off" placeholder="Full Name" [(ngModel)]="name" name="name" required>
-            <input type="text" class="col-12" autocomplete="off" placeholder="Phone Number" [(ngModel)]="phone" name="phone">
-            <input type="email" class="col-12" placeholder="Email address.." [(ngModel)]="email" name="email" required>
-            <input type="password" class="col-12" placeholder="Password" [(ngModel)]="password" name="password" required>
+            <input type="text" class="col-12" autocomplete="off" placeholder="Full Name" ngModel name="name" required>
+            <input type="text" class="col-12" autocomplete="off" placeholder="Phone Number" ngModel name="phone">
+            <input type="email" class="col-12" placeholder="Email address.." ngModel name="email" required>
+            <input type="password" class="col-12" placeholder="Password" ngModel name="password" required>
 
-            <select class="col-12" [(ngModel)]="language" name="language" required>
+            <select class="col-12" ngModel name="language" required>
                 <option *ngFor="let language of languages" [selected]="language.language == 'English'" [ngValue]="language.code">
                     {{language.language}}
                 </option>

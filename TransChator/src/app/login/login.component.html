@@ -12,8 +12,8 @@
 
         <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
 
-            <input type="email" class="col-12" placeholder="Email address.." [(ngModel)]="email" name="email" required>
-            <input type="password" class="col-12" placeholder="Password" [(ngModel)]="password" name="password" required>
+            <input type="email" class="col-12" placeholder="Email address.." ngModel name="email" required>
+            <input type="password" class="col-12" placeholder="Password" ngModel name="password" required>
 
             <button type="submit" [disabled]="!formData.valid" class="basic-btn">Login</button>
         </form>
