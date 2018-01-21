@@ -18,7 +18,7 @@ export class SignUpComponent implements OnInit {
     constructor(public af: AngularFireAuth, private router: Router) {
         this.af.authState.subscribe((auth) => {
             if (auth) {
-                this.router.navigate(['/chat']);
+                this.router.navigate(['/secondparty']);
             }
         });
         firebase.database().ref('languages').on('value', (languages) => {
@@ -37,8 +37,8 @@ export class SignUpComponent implements OnInit {
             firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((user) => {
                 user.sendEmailVerification();
-                addToDatabase(user.uid, formData).then(() => {
-                    that.router.navigate(['/chat']);
+                that.addToDatabase(user.uid, formData).then(() => {
+                    that.router.navigate(['/secondparty']);
                 });
             })
             .catch((err) => {
@@ -47,23 +47,19 @@ export class SignUpComponent implements OnInit {
         }
     }
 
-    goBack() {
-        this.router.navigate(['/login']);
-    }
-
     ngOnInit() {
     }
-}
 
-function addToDatabase(id, formData) {
-    let promise = new Promise((resolve) => {
-        firebase.database().ref('users/' + id).set({
-            name: formData.value.name,
-            email: formData.value.email,
-            phone_number: (formData.value.phone || null),
-            language: formData.value.language
+    addToDatabase(id, formData) {
+        let promise = new Promise((resolve) => {
+            firebase.database().ref('users/' + id).set({
+                name: formData.value.name,
+                email: formData.value.email,
+                phone_number: (formData.value.phone || null),
+                language: formData.value.language
+            });
+            resolve();
         });
-        resolve();
-    });
-    return promise;
+        return promise;
+    }
 }
