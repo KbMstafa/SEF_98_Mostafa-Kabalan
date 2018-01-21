@@ -15,9 +15,6 @@ export class MessagingComponent {
         hour: "2-digit", minute: "2-digit"
     };
 
-    constructor() {
-    }
-
     setFormValues(user, httpClient) {
         this.httpClient = httpClient;
         this.messageForm = document.getElementById('message-form');
@@ -27,10 +24,9 @@ export class MessagingComponent {
         this.user = user;
         this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
         this.messageInput.setAttribute('disabled', 'true');
-
     }
 
-    setSecondParty(secondParty) {       
+    setSecondParty(secondParty) {
         this.messageInput.removeAttribute('disabled');
         this.secondParty = secondParty;
         this.messageList.innerHTML = '';
@@ -67,7 +63,6 @@ export class MessagingComponent {
         }
     }
 
-
     saveMessage() {
         if (this.messageInput.value) {
             var unchanged = this.messageInput.value.match(/<([\w*\s*]+)>/g);
@@ -93,6 +88,13 @@ export class MessagingComponent {
             photoUrl: this.user.info.Photo_URL || '/images/profile_placeholder.png',
             time: new Date().toLocaleTimeString("en", this.TimeOption)
         }).then(this.resetForm());
+        var time = new Date().getTime();
+        firebase.database().ref('conversations/' + this.user.id + '/' + this.secondParty.id).set({
+            time: time
+        });
+        firebase.database().ref('conversations/' + this.secondParty.id + '/' + this.user.id).set({
+            time: time
+        });
     }
 
     resetForm() {
@@ -103,7 +105,6 @@ export class MessagingComponent {
     loadMessages() {
         this.messagesRef.off();
         this.messagesRef.on('child_added', this.setMessage.bind(this));
-        this.messagesRef.on('child_changed', this.setMessage.bind(this));
     }
 
     setMessage(data) {
@@ -132,8 +133,6 @@ export class MessagingComponent {
             messageElement.textContent = text;
             messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
         }
-
-        
 
         setTimeout(function() {
             div.classList.add('visible')

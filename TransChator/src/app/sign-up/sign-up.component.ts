@@ -42,9 +42,13 @@ export class SignUpComponent implements OnInit {
                 });
             })
             .catch((err) => {
-                this.error = err;
+                that.error = err;
             });
         }
+    }
+
+    goBack() {
+        this.router.navigate(['/login']);
     }
 
     ngOnInit() {

@@ -1,119 +1,168 @@
-    /* You can add global styles to this file, and also import other style files */
-    
-    body {
-        background: #E2E4E6;
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    background: #E2E4E6;
+}
+
+button {
+    padding: 1em;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.basic-btn {
+    background: #3B8598;
+    color: white;
+}
+
+h2 {
+    margin: 0 0 .9em 0;
+}
+
+.alc {
+    text-align: center;
+    display: block;
+    margin: 15px 0;
+}
+
+.error {
+    background: #f1f0ef;
+    padding: 1em;
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+}
+
+#goback {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: .8em;
+    color: #3B8598;
+}
+
+#goback span {
+    font-size: 1em;
+}
+
+.loading {
+    width: 30px;
+    height: 30px;
+    border: 5px solid #ccc;
+    position: fixed;
+    left: 50%;
+    margin-left: -20px;
+    top: 50%;
+    margin-top: -20px;
+    border-radius: 50%;
+}
+
+.loading:after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 10px;
+    background: #E2E4E6;
+    top: 10px;
+    left: -5px;
+    animation: spin 1.2s infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
     }
-    
+}
+
+@media (max-width: 600px) {
     button {
-        padding: 1em;
-        cursor: pointer;
-        margin-bottom: 15px;
         font-size: 1em;
     }
-    
-    .basic-btn {
-        background: #3B8598;
-        color: white;
-    }
-    
-    h2 {
-        margin: 0 0 .9em 0;
-    }
-    
-    .alc {
-        text-align: center;
-        display: block;
-        margin: 15px 0;
-    }
-    
-    .error {
-        background: #f1f0ef;
-        padding: 1em;
-        width: 100%;
-        display: block;
-        margin-bottom: 20px;
-    }
-    
-    #goback {
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: .8em;
-        color: #3B8598;
-    }
-    
-    #goback span {
-        font-size: 1em;
-    }
-    
-    .loading {
-        width: 30px;
-        height: 30px;
-        border: 5px solid #ccc;
-        position: fixed;
-        left: 50%;
-        margin-left: -20px;
-        top: 50%;
-        margin-top: -20px;
-        border-radius: 50%;
-    }
-    
-    .loading:after {
-        content: '';
-        position: absolute;
-        width: 40px;
-        height: 10px;
-        background: #E2E4E6;
-        top: 10px;
-        left: -5px;
-        animation: spin 1.2s infinite;
-    }
-    
-    @keyframes spin {
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-    
-    @media (max-width: 600px) {
-        button {
-            font-size: 1em;
-        }
-    }
-    
-    .message-container:first-of-type {
-        border-top-width: 0;
-    }
-    
-    .message-container {
-        display: block;
-        border-top: 1px solid #f3f3f3;
-        padding: 10px 0;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-    }
-    
-    .message-container.visible {
-        opacity: 1;
-    }
-    
-    .message-container .message {
-        display: table-cell;
-        width: calc(100% - 40px);
-        padding: 5px 0 5px 10px;
-    }
-    
-    .message-container .name {
-        display: inline-block;
-        width: 80%;
-        padding-left: 40px;
-        color: #bbb;
-        font-style: italic;
-        font-size: 12px;
-        box-sizing: border-box;
-    }
-    
-    .message-container .time {
-        float: right;
-        color: grey;
-        font-size: 9px;
-    }
+}
+
+.message-container:first-of-type {
+    border-top-width: 0;
+}
+
+.message-container {
+    display: block;
+    border-top: 1px solid #f3f3f3;
+    padding: 10px 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.message-container.visible {
+    opacity: 1;
+}
+
+.message-container .message {
+    display: table-cell;
+    width: calc(100% - 40px);
+    padding: 5px 0 5px 10px;
+}
+
+.message-container .name {
+    display: inline-block;
+    width: 80%;
+    padding-left: 40px;
+    color: #bbb;
+    font-style: italic;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.message-container .time {
+    float: right;
+    color: grey;
+    font-size: 9px;
+}
+
+.button {
+    height: 35px;
+    border: 1px solid #0288d1;
+    background: #ffffff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#ffffff));
+    background: -webkit-linear-gradient(top, #ffffff, #ffffff);
+    background: -moz-linear-gradient(top, #ffffff, #ffffff);
+    background: -ms-linear-gradient(top, #ffffff, #ffffff);
+    background: -o-linear-gradient(top, #ffffff, #ffffff);
+    background-image: -ms-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+    padding: 10px 20px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+    -moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+    box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(255, 255, 255, 0.4) 0 1px 0;
+    text-shadow: #7ea4bd 0 1px 0;
+    color: #0288d1;
+    font-size: 15px;
+    font-family: helvetica, serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.button:hover {
+    text-shadow: #ffffff 0 1px 0;
+    background: #0288d1;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0288d1), to(#0288d1));
+    background: -webkit-linear-gradient(top, #0288d1, #0288d1);
+    background: -moz-linear-gradient(top, #0288d1, #0288d1);
+    background: -ms-linear-gradient(top, #0288d1, #0288d1);
+    background: -o-linear-gradient(top, #0288d1, #0288d1);
+    background-image: -ms-linear-gradient(top, #0288d1 0%, #0288d1 100%);
+    color: #fff;
+}
+
+.button:active {
+    text-shadow: #000000 0 1px 0;
+    background: #0288d1;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0288d1), to(#0288d1));
+    background: -webkit-linear-gradient(top, #0288d1, #0288d1);
+    background: -moz-linear-gradient(top, #0288d1, #0288d1);
+    background: -ms-linear-gradient(top, #0288d1, #0288d1);
+    background: -o-linear-gradient(top, #0288d1, #0288d1);
+    background-image: -ms-linear-gradient(top, #0288d1 0%, #0288d1 100%);
+    color: #fff;
+}

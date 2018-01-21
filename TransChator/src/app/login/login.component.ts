@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
         this.af.authState.subscribe(auth => {
             if (auth) {
-                this.router.navigateByUrl('/chat');
+                this.router.navigateByUrl('/secondparty');
             }
             var signOutButton = document.getElementById('sign-out');
             var userPic = document.getElementById('user-pic');
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
             var password = formData.value.password;
             firebase.auth().signInWithEmailAndPassword(email, password)
             .then(function () {
-                this.router.navigate(['/chat']);
+                this.router.navigate(['/secondparty']);
             })
             .catch((err) => {
                 this.error = err;

@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-sm-12 col-md-8 offset-md-2" id="member-list">
+        <form class="col-12" id="email-search">
+            <input type="text" class="col-md-12" placeholder="Search by email" id="search" />
+        </form>
+
+        <select size="3" class="col-12" name="conversation" id="conversations-list">
+            <option *ngFor="let conversation of conversations" value="{{conversation.email}}">
+                <h5 class="name">{{conversation.name}} <label class="username">({{conversation.email}})</label></h5>
+                <h6 class="last-message">{{conversation.message}}</h6>
+            </option>
+        </select>
+
+    </div>
+</div>

@@ -22,7 +22,8 @@ import { routes } from './app.routes';
 import { HeaderComponent } from './header/header.component';
 import { ChatScreenComponent } from './chat-screen/chat-screen.component';
 import { MessagingComponent } from './classes/messaging.component';
-
+import { SecondPartyComponent } from "./second-party/second-party.component";
+import { DataService } from './data.service';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { MessagingComponent } from './classes/messaging.component';
         LoginComponent,
         SignUpComponent,
         HeaderComponent,
-        ChatScreenComponent
+        ChatScreenComponent,
+        SecondPartyComponent
     ],
     imports: [
         BrowserModule,
@@ -46,6 +48,7 @@ import { MessagingComponent } from './classes/messaging.component';
     providers: [
         AuthGuard, 
         MessagingComponent,
+        DataService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpsRequestInterceptor,

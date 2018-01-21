@@ -1,0 +1,39 @@
+#member-list {
+    background: white;
+    height: 90vh;
+    padding: 15px 0;
+}
+
+#email-search {
+    padding: 0 15px;
+}
+
+#search {
+    border-radius: 30px;
+}
+
+select {
+    height: 80vh;
+    padding: 0;
+}
+
+option {
+    height: 10%;
+    border-bottom: 0.5px solid rgb(131, 129, 129);
+    padding: 1%;
+}
+
+.name {
+    margin: 0;
+}
+
+.username {
+    margin: 0;
+    color: rgb(53, 42, 42);
+}
+
+.last-message {
+    font-size: 1rem;
+    font-weight: normal;
+    color: grey;
+}

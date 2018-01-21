@@ -6,13 +6,14 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthGuard } from './auth.service';
 import { ChatScreenComponent } from './chat-screen/chat-screen.component';
+import { SecondPartyComponent } from './second-party/second-party.component';
 
 export const router: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'chat', component: ChatScreenComponent, canActivate: [AuthGuard] },
     { path: 'signup', component: SignUpComponent },
-
+    { path: 'secondparty', component: SecondPartyComponent }
 ]
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);
