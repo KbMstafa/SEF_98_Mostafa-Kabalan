@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
-import { moveIn, fallIn, moveInLeft } from '../router.animations';
 import { MessagingComponent } from '../classes/messaging.component';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from "../data.service";
