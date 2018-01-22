@@ -67,7 +67,7 @@ export class MessagingComponent {
         if (this.messageInput.value) {
             var unchanged = this.messageInput.value.match(/<([\w*\s*]+)>/g);
             this.messageInput.value = this.messageInput.value.replace(/(<[\w*\s*]+>)/g, "...");
-            /* this.translate().then(() => {
+            this.translate().then(() => {
                 if(unchanged) {
                     for (let value of unchanged) {
                         value = value.replace('<', "`");
@@ -76,8 +76,8 @@ export class MessagingComponent {
                     }
                 }
                 this.storeMessage();
-            }); */
-            this.storeMessage();
+            });
+            /* this.storeMessage(); */
         }
     }
 
