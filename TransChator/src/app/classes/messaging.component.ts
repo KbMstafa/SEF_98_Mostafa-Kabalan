@@ -77,7 +77,6 @@ export class MessagingComponent {
                 }
                 this.storeMessage();
             });
-            /* this.storeMessage(); */
         }
     }
 
@@ -118,15 +117,18 @@ export class MessagingComponent {
         if (!div) {
             var container = document.createElement('div');
             container.innerHTML = '<div class="message-container">'
-                                + '<div class="name"></div>'
-                                + '<div class="time"></div>'
                                 + '<div class="message"></div>'
+                                + '<div class="time"></div>'
                                 + '</div>';
             div = <HTMLDivElement>container.firstChild;
             div.setAttribute('id', key);
+            if(name == this.user.info.name) {
+                div.classList.add('sender');
+            } else {
+                div.classList.add('receiver');
+            }
             this.messageList.appendChild(div);
         }
-        div.querySelector('.name').textContent = name;
         div.querySelector('.time').textContent = time;
         var messageElement = div.querySelector('.message');
         if (text) { 

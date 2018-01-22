@@ -55,12 +55,6 @@ export class SecondPartyComponent implements OnInit {
                     }); 
 
                     that.loadSecondPartiesConversations();
-
-                    var conversationsList = <HTMLSelectElement>document.getElementById('conversations-list');
-                    conversationsList.addEventListener("change", () => {
-                        that.loadSecondParty(conversationsList.value);
-                    });
-
                 });
             }
         });
@@ -126,5 +120,9 @@ export class SecondPartyComponent implements OnInit {
                 return false;
             });
         });
+    }
+    
+    select(element) {
+        console.log(element);
     }
 }

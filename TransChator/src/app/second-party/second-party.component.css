@@ -12,15 +12,21 @@
     border-radius: 30px;
 }
 
-select {
+#conversations-list {
     height: 80vh;
-    padding: 0;
+    border-top: 0.5px solid darkgray;
+    overflow-y: auto;
 }
 
-option {
+.convrstion:hover,
+.convrstion:focus {
+    cursor: pointer;
+}
+
+.convrstion {
     height: 10%;
-    border-bottom: 0.5px solid rgb(131, 129, 129);
-    padding: 1%;
+    border-bottom: 0.5px solid darkgray;
+    padding: 5px;
 }
 
 .name {
