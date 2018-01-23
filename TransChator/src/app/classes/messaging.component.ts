@@ -47,8 +47,11 @@ export class MessagingComponent {
                 })
                 .subscribe(
                 (res: any) => {
-                    
-                    this.messageInput.value = res.data.translations[0].translatedText;
+                    const domParserHtmlEntities = new DOMParser();
+                    this.messageInput.value = domParserHtmlEntities.parseFromString(
+                        res.data.translations[0].translatedText, 
+                        'text/html'
+                    ).body.textContent;
                     resolve();
                 });
         });
