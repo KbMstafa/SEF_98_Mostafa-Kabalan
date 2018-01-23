@@ -1,15 +1,19 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { AsyncLocalStorage } from 'angular-async-local-storage';
 
 @Injectable()
 export class DataService {
 
-    private messageSource = new BehaviorSubject<Object>(null);
-    currentMessage = this.messageSource.asObservable();
+    constructor(public localStorage: AsyncLocalStorage) { }
 
-    constructor() {}
-
-    changeMessage(message: Object){
-        this.messageSource.next(message);
+    changeMessage(secondParty: Object){
+        let promise = new Promise((resolve) => {
+            this.localStorage.removeItem('secondParty').subscribe(() => {
+                this.localStorage.setItem('secondParty', secondParty).subscribe(() => {
+                    resolve();
+                });
+            });
+        });
+        return promise;
     }
 }

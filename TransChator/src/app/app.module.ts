@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpsRequestInterceptor } from './interceptor.module';
-
+import { AsyncLocalStorageModule } from 'angular-async-local-storage';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -24,6 +24,7 @@ import { MessagingComponent } from './classes/messaging.component';
 import { SecondPartyComponent } from "./second-party/second-party.component";
 import { DataService } from './data.service';
 
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -41,7 +42,8 @@ import { DataService } from './data.service';
         AngularFireAuthModule,
         NgbModule.forRoot(),
         routes,
-        HttpClientModule
+        HttpClientModule,
+        AsyncLocalStorageModule
     ],
     providers: [
         AuthGuard, 

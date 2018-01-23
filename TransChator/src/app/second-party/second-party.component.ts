@@ -78,8 +78,9 @@ export class SecondPartyComponent implements OnInit {
                         };
                     }
                 }
-                that.data.changeMessage(that.secondParty);
-                that.router.navigate(['/chat']);
+                that.data.changeMessage(that.secondParty).then(() => {
+                    that.router.navigate(['/chat']);
+                });
             });
     }
 

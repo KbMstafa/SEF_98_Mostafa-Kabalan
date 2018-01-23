@@ -41,28 +41,32 @@ export class ChatScreenComponent implements OnInit {
 
                     that.messaging.setFormValues(that.user, httpClient); 
 
-                    that.data.currentMessage.subscribe((message) => {
+                    /* that.data.currentMessage.subscribe((message) => {
                         if(message) {
                             that.secondParty = message;
                         }
+                    }); */
+
+                    that.data.localStorage.getItem<Object>('secondParty').subscribe((secondParty) => {
+                        if (secondParty) {
+                            that.secondParty = secondParty;
+
+                            that.messaging.setSecondParty(that.secondParty);
+
+                            that.messaging.loadMessages();
+
+                            that.messaging.messageInput.addEventListener('keyup', function () {
+                                messaging.toggleButton()
+                            });
+                            that.messaging.messageInput.addEventListener('change', function () {
+                                messaging.toggleButton()
+                            });
+                        } else {
+                            that.messaging.messageList.innerHTML = '<h4> The username you have provided isn\'t currently registered in our system. </h4>';
+                            that.messaging.messageInput.value = '';
+                            that.messaging.messageInput.setAttribute('disabled', 'true');
+                        }
                     });
-                        
-                    if(!that.secondParty) {
-                        that.messaging.messageList.innerHTML = '<h4> The username you have provided isn\'t currently registered in our system. </h4>';
-                        that.messaging.messageInput.value = '';
-                        that.messaging.messageInput.setAttribute('disabled', 'true');
-                    } else {
-                        that.messaging.setSecondParty(that.secondParty);
-                    
-                        that.messaging.loadMessages();
-                        
-                        that.messaging.messageInput.addEventListener('keyup', function () {
-                            messaging.toggleButton()
-                        });
-                        that.messaging.messageInput.addEventListener('change', function () {
-                            messaging.toggleButton()
-                        });
-                    }
                 });
             }
         });
