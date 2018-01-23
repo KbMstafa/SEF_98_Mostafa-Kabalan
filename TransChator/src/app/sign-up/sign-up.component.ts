@@ -4,6 +4,8 @@ import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 
+import { FormControl, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -13,6 +15,12 @@ export class SignUpComponent implements OnInit {
 
     error: any;
     languages = [];
+    phone = new FormControl('');
+    name = new FormControl('', [Validators.required]);
+    email = new FormControl('', [Validators.required, Validators.email]);
+    password = new FormControl('', [Validators.required, Validators.minLength(6)]);
+    languageControl = new FormControl('', [Validators.required]);
+    hide = true;
 
     constructor(public af: AngularFireAuth, private router: Router) {
         this.af.authState.subscribe((auth) => {
@@ -28,37 +36,78 @@ export class SignUpComponent implements OnInit {
         });
     }
 
-    onSubmit(formData) {
-        if (formData.valid) {
-            var email = formData.value.email;
-            var password = formData.value.password;
-            var that = this;
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((user) => {
-                user.sendEmailVerification();
-                that.addToDatabase(user.uid, formData).then(() => {
-                    that.router.navigate(['/secondparty']);
-                });
-            })
-            .catch((err) => {
-                that.error = err;
-            });
-        }
+    getNameErrorMessage() {
+        return this.name.hasError('required') ? 'You must enter a name' :
+                '';
+    }
+
+    getEmailErrorMessage() {
+        return this.email.hasError('required') ? 'You must enter a email' :
+            this.email.hasError('email') ? 'Not a valid email' :
+                '';
+    }
+
+    getLanguageErrorMessage() {
+        return this.email.hasError('required') ? 'Please choose an language' :
+                '';
+    }
+
+    getPasswordErrorMessage() {
+        return this.email.hasError('required') ? 'You must enter a password' :
+            this.password.hasError('minlength') ? 'Password must be at least 6 character' :
+            '';
     }
 
     ngOnInit() {
     }
 
-    addToDatabase(id, formData) {
+    addToDatabase(id) {
         let promise = new Promise((resolve) => {
             firebase.database().ref('users/' + id).set({
-                name: formData.value.name,
-                email: formData.value.email,
-                phone_number: (formData.value.phone || null),
-                language: formData.value.language
+                name: this.name.value,
+                email: this.email.value,
+                phone_number: (this.languageControl.value || null),
+                language: this.phone.value
             });
             resolve();
         });
         return promise;
+    }
+
+    onSubmit() {
+        if (this.email.valid
+            && this.password.valid
+            && this.name.valid
+            && this.languageControl.valid
+        ) {
+            var that = this;
+            firebase.auth().createUserWithEmailAndPassword(
+                this.email.value,
+                this.password.value
+            )
+                .then((user) => {
+                    user.sendEmailVerification();
+                    that.addToDatabase(user.uid).then(() => {
+                        that.router.navigate(['/secondparty']);
+                    });
+                })
+                .catch((err) => {
+                    that.error = err;
+                });
+        }
+    }
+
+    test() {
+        if (this.email.valid 
+            && this.password.valid
+            && this.name.valid
+            && this.languageControl.valid
+        ) {
+            console.log(this.name.value);
+            console.log(this.email.value);
+            console.log(this.password.value);
+            console.log(this.languageControl.value);
+            console.log(this.phone.value);
+        }
     }
 }

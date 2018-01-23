@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpsRequestInterceptor } from './interceptor.module';
@@ -24,6 +25,7 @@ import { MessagingComponent } from './classes/messaging.component';
 import { SecondPartyComponent } from "./second-party/second-party.component";
 import { DataService } from './data.service';
 
+import { MaterialModule } from './material.module';
 
 @NgModule({
     declarations: [
@@ -36,6 +38,7 @@ import { DataService } from './data.service';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
@@ -43,7 +46,9 @@ import { DataService } from './data.service';
         NgbModule.forRoot(),
         routes,
         HttpClientModule,
-        AsyncLocalStorageModule
+        AsyncLocalStorageModule,
+        MaterialModule,
+        ReactiveFormsModule
     ],
     providers: [
         AuthGuard, 

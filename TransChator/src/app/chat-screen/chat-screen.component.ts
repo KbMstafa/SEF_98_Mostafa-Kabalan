@@ -41,12 +41,6 @@ export class ChatScreenComponent implements OnInit {
 
                     that.messaging.setFormValues(that.user, httpClient); 
 
-                    /* that.data.currentMessage.subscribe((message) => {
-                        if(message) {
-                            that.secondParty = message;
-                        }
-                    }); */
-
                     that.data.localStorage.getItem<Object>('secondParty').subscribe((secondParty) => {
                         if (secondParty) {
                             that.secondParty = secondParty;

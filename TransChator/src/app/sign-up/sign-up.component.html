@@ -14,20 +14,40 @@
 
         <span class="error" *ngIf="error">{{ error }}</span>
 
-        <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+        <div class="auth-container">
 
-            <input type="text" class="col-12" autocomplete="off" placeholder="Full Name" ngModel name="name" required>
-            <input type="text" class="col-12" autocomplete="off" placeholder="Phone Number" ngModel name="phone">
-            <input type="email" class="col-12" placeholder="Email address.." ngModel name="email" required>
-            <input type="password" class="col-12" placeholder="Password" ngModel name="password" required>
+            <mat-form-field>
+                <input matInput placeholder="Full Name" [formControl]="name" required>
+                <mat-error *ngIf="email.invalid">{{getNameErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-            <select class="col-12" ngModel name="language" required>
-                <option *ngFor="let language of languages" [selected]="language.language == 'English'" [ngValue]="language.code">
-                    {{language.language}}
-                </option>
-            </select>
+            <mat-form-field>
+                <input type="tel" matInput placeholder="Telephone" [formControl]="phone">
+            </mat-form-field>
 
-            <button type="submit" [disabled]="!formData.valid" class="basic-btn">Create my account</button>
-        </form>
+            <mat-form-field>
+                <input matInput placeholder="Enter your email" [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Enter your password" [formControl]='password' [type]="hide ? 'password' : 'text'">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select placeholder="Language" [formControl]="languageControl" required>
+                    <mat-option *ngFor="let language of languages" [value]="language.code">
+                        {{ language.language }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="languageControl.invalid">getLanguageErrorMessage()</mat-error>
+            </mat-form-field>
+
+
+            <button mat-button (click)="onSubmit() ">Sign up</button>
+
+        </div>
     </div>
 </div>

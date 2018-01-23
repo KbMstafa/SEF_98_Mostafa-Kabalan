@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 body {
     background: #E2E4E6;
 }
@@ -179,4 +180,26 @@ h2 {
     float: left;
     background: #f4f4f4;
     border-radius: 0px 20px 20px 20px;
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-container>* {
+    width: 100%;
+}
+
+.mat-button {
+    background: #1774e4;
+}
+
+input,
+input:hover,
+input:focus {
+    height: unset !important;
+    box-shadow: unset !important;
+    border: none !important;
+    margin-bottom: 0 !important
 }

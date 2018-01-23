@@ -8,32 +8,3 @@
     display: block;
     fill: #0288d1;
 }
-
-#fb {
-    background: #3B5998 url('assets/images/facebook.svg') no-repeat 14px -1px;
-    background-size: 40px;
-    color: #fff;
-}
-
-#google {
-    border: 1px solid #95989A;
-    background: #fff url('assets/images/google.svg') no-repeat 25px;
-    background-size: 25px;
-}
-
-#email {
-    background: #ECECEC url('assets/images/email.svg') no-repeat 25px;
-    background-size: 25px;
-}
-
-@media (max-width: 600px) {
-    #fb {
-        background: #3B5998;
-    }
-    #google {
-        background: #fff;
-    }
-    #email {
-        background: #ECECEC;
-    }
-}

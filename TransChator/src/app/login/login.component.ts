@@ -4,6 +4,8 @@ import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 
+import { FormControl, Validators } from '@angular/forms';
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -13,6 +15,10 @@ import * as firebase from 'firebase/app';
 export class LoginComponent implements OnInit {
 
     error: any;
+    email = new FormControl('', [Validators.required , Validators.email]);
+    password = new FormControl('', [Validators.required, Validators.minLength(6)]);
+    hide = true;
+
     constructor(public af: AngularFireAuth, private router: Router) {
 
         this.af.authState.subscribe(auth => {
@@ -25,16 +31,17 @@ export class LoginComponent implements OnInit {
             signOutButton.setAttribute('hidden', 'true');
             userPic.setAttribute('hidden', 'true');
             userName.setAttribute('hidden', 'true');
-
         });
+        
 
     }
 
-    onSubmit(formData) {
-        if (formData.valid) {
-            var email = formData.value.email;
-            var password = formData.value.password;
-            firebase.auth().signInWithEmailAndPassword(email, password)
+    onSubmit() {
+        if (this.email.valid && this.password.valid) {
+            firebase.auth().signInWithEmailAndPassword(
+                this.email.value, 
+                this.password.value
+            )
             .then(function () {
                 this.router.navigate(['/secondparty']);
             })
@@ -42,6 +49,18 @@ export class LoginComponent implements OnInit {
                 this.error = err;
             });
         }
+    }
+
+    getEmailErrorMessage() {
+        return this.email.hasError('required') ? 'You must enter a email' :
+            this.email.hasError('email') ? 'Not a valid email' :
+                '';
+    }
+
+    getPasswordErrorMessage() {
+        return this.email.hasError('required') ? 'You must enter a password' :
+            this.password.hasError('minlength') ? 'Password must be at least 6 character' :
+                '';
     }
 
     ngOnInit() {
