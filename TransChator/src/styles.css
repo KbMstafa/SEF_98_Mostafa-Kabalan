@@ -171,4 +171,11 @@ input:focus {
 #send {
     height: 100%;
     margin-top: 20% !important;
+    margin-left: auto;
+    float: right;
+    width: 20%;
+}
+
+#message-text {
+    width: 65%;
 }
