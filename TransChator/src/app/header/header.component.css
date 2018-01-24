@@ -7,6 +7,8 @@ nav {
 #sign-out {
     width: 100%;
     color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .material-icons {

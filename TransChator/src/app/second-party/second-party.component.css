@@ -4,10 +4,6 @@
     padding: 15px 0;
 }
 
-#email-search {
-    padding: 0 15px;
-}
-
 #search {
     border-radius: 30px;
 }
@@ -25,6 +21,23 @@
 
 .convrstion {
     height: 10%;
+    border-bottom: 0.5px solid darkgray;
+    padding: 5px;
+}
+
+#search-list {
+    height: 71vh;
+    border-top: 0.5px solid darkgray;
+    overflow-y: auto;
+}
+
+.search:hover,
+.search:focus {
+    cursor: pointer;
+}
+
+.search {
+    height: 7%;
     border-bottom: 0.5px solid darkgray;
     padding: 5px;
 }

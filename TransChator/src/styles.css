@@ -5,13 +5,6 @@ body {
     background: #E2E4E6;
 }
 
-button {
-    padding: 1em;
-    cursor: pointer;
-    margin-bottom: 15px;
-    font-size: 1em;
-}
-
 .basic-btn {
     background: #3B8598;
     color: white;
@@ -202,4 +195,22 @@ input:focus {
     box-shadow: unset !important;
     border: none !important;
     margin-bottom: 0 !important
+}
+
+.mat-icon {
+    cursor: pointer;
+}
+
+.mat-tab-body {
+    height: 80vh;
+}
+
+.search-select {
+    display: flex;
+    flex-direction: column;
+    width: calc(80% - 3px);
+}
+
+.search-button {
+    width: 20%;
 }

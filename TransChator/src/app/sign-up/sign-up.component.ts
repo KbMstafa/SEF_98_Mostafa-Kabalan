@@ -48,7 +48,7 @@ export class SignUpComponent implements OnInit {
     }
 
     getLanguageErrorMessage() {
-        return this.email.hasError('required') ? 'Please choose an language' :
+        return this.languageControl.hasError('required') ? 'Please choose an language' :
                 '';
     }
 
@@ -66,8 +66,8 @@ export class SignUpComponent implements OnInit {
             firebase.database().ref('users/' + id).set({
                 name: this.name.value,
                 email: this.email.value,
-                phone_number: (this.languageControl.value || null),
-                language: this.phone.value
+                phone_number: (this.phone.value || null),
+                language: this.languageControl.value
             });
             resolve();
         });
@@ -94,20 +94,6 @@ export class SignUpComponent implements OnInit {
                 .catch((err) => {
                     that.error = err;
                 });
-        }
-    }
-
-    test() {
-        if (this.email.valid 
-            && this.password.valid
-            && this.name.valid
-            && this.languageControl.valid
-        ) {
-            console.log(this.name.value);
-            console.log(this.email.value);
-            console.log(this.password.value);
-            console.log(this.languageControl.value);
-            console.log(this.phone.value);
         }
     }
 }

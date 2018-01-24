@@ -42,11 +42,11 @@
                         {{ language.language }}
                     </mat-option>
                 </mat-select>
-                <mat-error *ngIf="languageControl.invalid">getLanguageErrorMessage()</mat-error>
+                <mat-error *ngIf="languageControl.invalid">{{getLanguageErrorMessage()}}</mat-error>
             </mat-form-field>
 
 
-            <button mat-button (click)="onSubmit() ">Sign up</button>
+            <button mat-button (click)="onSubmit() ">Register</button>
 
         </div>
     </div>
