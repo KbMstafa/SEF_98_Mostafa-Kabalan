@@ -168,14 +168,6 @@ input:focus {
     margin-top: 5px !important;
 }
 
-#send {
-    height: 100%;
-    margin-top: 20% !important;
-    margin-left: auto;
-    float: right;
-    width: 20%;
-}
-
 #message-text {
-    width: 65%;
+    width: 100%;
 }
