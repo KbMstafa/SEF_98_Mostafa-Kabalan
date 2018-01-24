@@ -3,10 +3,10 @@
         <div id="messages" class="col-12">
         </div>
         <form id="message-form" class="row">
-            <input id="message" type="text" autocomplete="off" placeholder="Message..." class="col-10" />
-            <button id="submit" disabled type="submit" class="button col-2">
-                Send
-            </button>
+            <mat-form-field class="col-10">
+                <input matInput autocomplete="off" placeholder="Message" id="message" [type]="text">
+            </mat-form-field>
+            <button id="send" class="col-2" mat-button>Send</button>
         </form>
     </div>
 </div>
