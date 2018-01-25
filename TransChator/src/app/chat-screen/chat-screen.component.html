@@ -1,14 +1,5 @@
 <div class="row">
-    <!-- <div id="chat" class="col-12">
-        <div id="messages" class="col-12">
-        </div>
-        <form id="message-form" class="row">
-            <mat-form-field id="message-text">
-                <input matInput autocomplete="off" placeholder="Message" id="message">
-            </mat-form-field>
-        </form>
-    </div> -->
-    <mat-card id="chat">
+    <mat-card id="chat" class="col-12">
         <mat-card-header *ngIf="secondParty">
             <div mat-card-avatar></div>
             <mat-card-title>{{ secondParty.info.name }}</mat-card-title>
