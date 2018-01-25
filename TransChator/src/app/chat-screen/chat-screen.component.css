@@ -1,5 +1,7 @@
 #chat {
     background: white;
+    height: 90vh;
+    padding: 0;
 }
 
 #message {
@@ -7,15 +9,37 @@
 }
 
 #message-form {
-    height: 10vh;
-    padding: 15px 15px;
+    height: 100%;
 }
 
 #messages {
     overflow-y: auto;
-    height: 80vh;
+    height: 100%;
+    padding: 0 1%;
 }
 
 #message-filler {
     flex-grow: 1;
+}
+
+.mat-card-header {
+    padding: 1%;
+    height: 10%;
+    background: #96c7ff;
+}
+
+.mat-card-title {
+    margin-bottom: 8%;
+}
+
+.mat-card-content {
+    height: 80%;
+    margin: 0;
+}
+
+.mat-card-footer {
+    height: 10%;
+    width: 100%;
+    padding: 0 2%;
+    margin: 0;
 }

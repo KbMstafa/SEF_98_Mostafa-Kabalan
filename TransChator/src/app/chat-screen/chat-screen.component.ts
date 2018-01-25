@@ -32,6 +32,22 @@ export class ChatScreenComponent implements OnInit {
         var that = this;
         that.af.authState.subscribe(auth => {
             if (auth) {
+                firebase.database().ref('users/' + auth.uid)
+                .on('value', (snapshot) => {
+                    that.user = {
+                        id: auth.uid,
+                        info: snapshot.val()
+                    };
+                    var signOutButton = document.getElementById('sign-out');
+                    var userPic = document.getElementById('user-pic');
+                    var userName = document.getElementById('user-name');
+
+                    var profilePicUrl = that.user.info.photoURL;
+                    var usrName = that.user.info.name;
+                    userPic.style.background = 'url(assets/images/profile_placeholder.png)';
+                    userPic.style.backgroundSize = 'contain';
+                    userName.textContent = usrName;
+                });
 
                 firebase.database().ref('users/' + auth.uid).on('value', (snapshot) => {
                     that.user = {
