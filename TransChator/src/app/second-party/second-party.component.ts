@@ -20,7 +20,7 @@ export class SecondPartyComponent implements OnInit {
     languageControl = new FormControl('', [Validators.required]);
     conversations = [];
     languages = [];
-    newSecondParties = [];
+    newSecondParties = null;
 
     constructor(
         public af: AngularFireAuth,
@@ -55,13 +55,6 @@ export class SecondPartyComponent implements OnInit {
                     userName.removeAttribute('hidden');
                     userPic.removeAttribute('hidden');
                     signOutButton.removeAttribute('hidden');
-
-
-                    /* var emailSearch = document.getElementById('email-search');
-                    var search = <HTMLInputElement>document.getElementById('search');
-                    emailSearch.addEventListener('submit', () => {
-                        that.loadSecondParty(search.value);
-                    }); */ 
 
                     that.loadSecondPartiesConversations();
                 });
@@ -141,14 +134,11 @@ export class SecondPartyComponent implements OnInit {
         var that = this;
         this.newSecondParties = [];
         if(that.languageControl.valid) {
-            console.log(that.languageControl.value);
             firebase.database().ref('users/')
             .orderByChild("language")
             .equalTo(that.languageControl.value)
             .on("value", (snapshot) => {
-                console.log(snapshot.val());
                 snapshot.forEach((item) => {
-                    console.log(item.val());
                     var newSecondParty = {
                         name: item.val().name,
                         email: item.val().email
@@ -156,18 +146,7 @@ export class SecondPartyComponent implements OnInit {
                     that.newSecondParties.unshift(newSecondParty);
                     return false;
                 });
-                console.log(that.newSecondParties);
             });
         }
-    }
-
-    resetSearch() {
-        let promise = new Promise((resolve) => {
-            console.log(this.newSecondParties);
-            this.newSecondParties = [];
-            console.log(this.newSecondParties);
-            resolve();
-        });
-        return promise;
     }
 }

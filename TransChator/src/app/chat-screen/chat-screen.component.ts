@@ -49,12 +49,6 @@ export class ChatScreenComponent implements OnInit {
 
                             that.messaging.loadMessages();
 
-                            that.messaging.messageInput.addEventListener('keyup', function () {
-                                messaging.toggleButton()
-                            });
-                            that.messaging.messageInput.addEventListener('change', function () {
-                                messaging.toggleButton()
-                            });
                         } else {
                             that.messaging.messageList.innerHTML = '<h4> The username you have provided isn\'t currently registered in our system. </h4>';
                             that.messaging.messageInput.value = '';

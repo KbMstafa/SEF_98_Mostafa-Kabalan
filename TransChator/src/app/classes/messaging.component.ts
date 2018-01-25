@@ -20,7 +20,6 @@ export class MessagingComponent {
         this.messageForm = document.getElementById('message-form');
         this.messageList = document.getElementById('messages');
         this.messageInput = document.getElementById('message');
-        this.submitButton = document.getElementById('submit');
         this.user = user;
         this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
         this.messageInput.setAttribute('disabled', 'true');
@@ -101,7 +100,6 @@ export class MessagingComponent {
 
     resetForm() {
         this.messageInput.value = '';
-        this.toggleButton();
     }
 
     loadMessages() {

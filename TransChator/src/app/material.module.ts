@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableDataSource } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { MatTableDataSource } from '@angular/material';
         MatInputModule,
         MatIconModule,
         MatSelectModule,
-        MatTabsModule
+        MatTabsModule,
+        MatCardModule
     ],
     exports: [
         MatButtonModule,
@@ -23,7 +25,8 @@ import { MatTableDataSource } from '@angular/material';
         MatInputModule,
         MatIconModule,
         MatSelectModule,
-        MatTabsModule
+        MatTabsModule,
+        MatCardModule
     ],
 })
 export class MaterialModule { }
